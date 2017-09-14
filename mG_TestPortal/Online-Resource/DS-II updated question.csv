@@ -1,0 +1,70 @@
+,,,,,,
+S.No.,Question,Choice A,Choice B,Choice C,Choice D,Correct Ans
+1,Two main measures for the efficiency of an algorithm are __________.,Processor and memory ,Complexity and capacity,Time and space,Data and space,Time and space
+2, State true or false. i) The degree of leaf node is always zero. ii) Nodes that are not root and not leaf are called as internal nodes.,"True, True","True, False","False, True","False, False","True, True"
+3,Any node is the path from the root to the node is called _________.,Successor node,Ancestor node,Internal node,None of the above,Ancestor node
+4,State true or false. i) A node is a parent if it has successor nodes.   ii) A node is leaf node if its degree is zero.,"True, True","True, False","False, True","False, False","True, True"
+5,The space factor when determining the efficiency of algorithm is measured by,Counting the maximum memory needed by the algorithm,Counting the minimum memory needed by the algorithm,Counting the average memory needed by the algorithm,Counting the maximum disk space needed by the algorithm,Counting the maximum disk space needed by the algorithm
+6,Which of the following case does not exist in complexity theory,Best case,Worst case,Average case,Null case,Null case
+7,The Worst case occur in linear search algorithm when, Item is somewhere in the middle of the array,Item is not in the array at all,Item is the last element in the array,Item is the last element in the array or is not there at all,Item is the last element in the array or is not there at all
+8,Which of the following data structure is not linear data structure?,Arrays,Linked lists,Both of above,None of above,None of above
+9, State true or false. i) An empty tree is also a binary tree. ii) The general tree may have no root.,"True, True","True, False","False, True","False, False","True, False"
+10,The operation of visiting each element in the list is known as,Sorting,Merging,Inserting,Travesing,Travesing
+11, Which of the following data structure is linear type?,Array,Graph,Tree,Hierarchy,Array
+12,A binary tree whose every node has either zero or two children is called,Complete binary tree,Binary Search Tree,Lemma Tree,None of the above,Complete binary tree
+13,The depth of a complete binary tree of n element is given by,nlogn,nlog(n-1),nlog(n+1),logn,logn
+14,The in order traversal of tree will yield a sorted listing of elements of tree in,Binary trees,Binary search trees,Heaps,None of the above,Binary search trees
+15,What is the maximum height of any AVL-tree with 7 nodes? Assume that the height of a tree with a single node is 0.,2,3,4,5,3
+16,Which of the following is true about Red Black Trees?,The path from the root to the furthest leaf is no more than twice as long as the path from the root to the nearest leaf,At least one children of every black node is red,Root may be red,A leaf node may be red,The path from the root to the furthest leaf is no more than twice as long as the path from the root to the nearest leaf
+17,AVL trees have a faster ________________,Insertion,Deletion ,Updation,Retrival,Retrival
+18,A binary search tree whose left subtree and right subtree differ in hight by at most 1 unit is called ……,AVL Tree,Red Black Tree,Lemma Tree,None of the above,AVL Tree
+19,Which of the following is a self-adjusting or self-balancing Binary Search Tree.,Binary Tree,2-Tree,Red black Tree,None of the above,Red black Tree
+20,Consider a binary max-heap implemented using an array. Which one of the following array represents a binary max-heap?,"25,12,16,13,10,8,14","25,12,16,13,10,8,14","25,14,16,13,10,8,12","25,14,12,13,10,8,16","25,14,16,13,10,8,12"
+21,"In a heap, element with the greatest key is always in the ______________ node",Leaf ,Root,first node of left sub tree,first node of right sub tree,Root
+22,Among rotations the following are single and double rotations.,"LL, RL and LR, RR","LL, RR and LR, RL","LR, RR and LL, RL",None of the above,"LL, RR and LR, RL"
+23,"A sorting technique which uses the binary tree concept such that label of any node is larger than all the labels in the subtrees, is called",selection sort.,Insertion sort,Heap Sort,Quick Sort,Heap Sort
+24,Asymptotic notations are,"Gama,Omega,Theta","Big oh,Omega,Gama","Big oh,Gama,Theta","Omega,Big Oh,Theta","Omega,Big Oh,Theta"
+25,To search an element into stack minimum number of operation needed,O(n),O(logn),O(1),not determined,not determined
+26,The worst case occur in linear search algorithm when .......,Item is somewhere in the middle of the array,Item is not in the array at all,Item is the last element in the array, Item is the last element in the array or item is not there at all, Item is the last element in the array or item is not there at all
+27,The time factor when determining the efficiency of algorithm is measured by,Counting microseconds,Counting the number of key operations ,Counting the number of statements ,Counting the kilobytes of algorithm,Counting the number of key operations 
+28,The complexity of sorting algorithm measures the ...... as a function of the number n of items to be sorter.,average time,running time,average-case complexity,best case-complexity,best case-complexity
+29,Which stream class is to only write on files ?,ofstream,ifstream,fstream,iostream,ofstream
+30,Which among following is used to open a file in binary mode ?, ios:app, ios::out,ios::in,ios::binary,ios::binary
+31, The augmented tree is also called as -------------,Extened tree,Advanced tree,Informative tree,Order statistic tree,Order statistic tree
+32,Augmenting data structure means------------, dividing data structure into smaller units., adding some extra information,implementing data structure using some suitable programming language,none of these, adding some extra information
+33,On occurence of error the fopen will return -------------------,nothing, NULL,EOF,none of these, NULL
+34,The value of EOF is ---------,-1,1,0,none of these,-1
+35,Finding the location of a given item in a collection of items is called ......,Discovering,Finding,Searching,Mining,Searching
+36,Which of the following is an external sorting?,Insertion,Bubble ,Merge,Tree sort,Merge
+37,Number of internal nodes in a tournament tree,N+1,N,N-1,Any number of nodes,N-1
+38,Which of the following is an internal sorting?,Tape Sort,2-way Merge Sort,Multiway Merge Sort,Heap Sort,Heap Sort
+39,Sorting a file F usually refers to sorting F with respect to a particular key called .....,Basic key,Primary key,Starting key,Index key,Primary key
+40,The time complexity of worst case in quick sort is ........,O(n), O(logn), O(n2),O(n logn), O(n2)
+41, Selection sort first finds the .......... element in the list and put it in the first position.,Middle element, Largest element,Last element,Smallest element,Smallest element
+42,Quick sort is also known as ........, merge sort,Tree sort,Shell Sort,partition and exchange sort,partition and exchange sort
+43,The operation that combines the element is of A and B in a single sorted list C with n=r+s element is called ....,Inserting,Mixing,Merging ,Sharing,Merging 
+44,A tree sort is also known as ......... sort.,Quick,Heap,Shell ,Selection,Heap
+45,.......... sorting is good to use when alphabetizing large list of names.,Merge ,Heap,Radix,Bubble,Radix
+46,The efficint sorting is ........,Quick,Bubble ,Selection,Insertion,Quick
+47,Which of the following sorting algorithm is of divide and conquer type?,Quick,Bubble ,Selection,Insertion,Quick
+48,Merging k sorted tables into a single sorted table is called ......, k way merging, k th merge,k+1 merge,k-1 merge, k way merging
+49,The function used to modify the way of sorting the keys of records is called ........,Indexing function,Hash function,Addressing function,All of the above,Hash function
+50,"If the number of record to be sorted large and the key is short, then ...... sorting can be efficient.",Merge ,Heap,Radix,Bubble,Radix
+51,The total number of comparisons in a bubble sort is ..., O(n logn), O(2n),O(n2),O(n),O(n2)
+52,The time complexity of heap sort is ....,O(n),O(logn),O(n2), O(n logn), O(n logn)
+53,"If the given input array is sorted or nearly sorted, which of the following algorithm gives the best performance?",Insertion,Bubble ,Selection,Quick Sort,Insertion
+54,Which of the following sorting algorithms is/are stable,Counting sort,Bucket sort,Radix,All of the above,All of the above
+55,A sorting technique is called stable if it,Takes O(nlogn) times,Maintains the relative order of occurrence of non-distinct elements,Uses divide-and-conquer paradigm,Takes O(n) space,Maintains the relative order of occurrence of non-distinct elements
+56,Red Black tree has -------------------- property:, Root property,Path property,Red property,All of the above,All of the above
+57,When insert a node in Red Black tree rotation is perform  when uncle node color is,Red ,Black,Any of color,White,Black
+58,An interval tree which element is considered as a key value in a node,Mid Value,Left Value,Right Value,Any Value,Left Value
+59,The Average case occurs in linear search algorithm ..........,when item is somewhere in the middle of the array,when item is not the array at all,when item is the last element in the array,Item is the last element in the array or item is not there at all,when item is somewhere in the middle of the array
+60,Which if the following is/are the levels of implementation of data structure,Abstract level, Application level,Implementation level,All of the above,All of the above
+61,,,,,,
+62,,,,,,
+63,,,,,,
+64,,,,,,
+65,,,,,,
+66,,,,,,
+67,,,,,,
+68,,,,,,

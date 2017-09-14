@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>mG_TestPortal</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <context-param> 
+    <description>Location to store uploaded file</description> 
+    <param-name>file-upload</param-name> 
+    <param-value>
+         D:/PROJECTS/mG_TestPortal/Online-Resource/
+     </param-value> 
+</context-param>
+   <context-param> 
+    <param-name>address</param-name> 
+    <param-value>jdbc:mysql://127.0.0.1:3306/code</param-value> 
+ </context-param>
+    <context-param> 
+    <param-name>address2</param-name> 
+    <param-value>jdbc:mysql://127.0.0.1:3306/sessional</param-value> 
+ </context-param>
+  <context-param> 
+     <param-name>id</param-name> 
+    <param-value>mangesh</param-value> 
+ </context-param>
+  <context-param> 
+    <param-name>pass</param-name> 
+    <param-value>hero007@</param-value> 
+ </context-param>
+  
+</web-app>
