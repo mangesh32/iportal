@@ -413,8 +413,8 @@ function load_data(subval){
     	st2.close();
     	rs2.close();
   
-    	//Connection con2=DriverManager.getConnection(url_db2,id_db,pass_db);
-    	Statement st_Sess=connection.createStatement();
+    	Connection con2=DriverManager.getConnection(url_db2,id_db,pass_db);
+    	Statement st_Sess=con2.createStatement();
     	ResultSet rs_Sess=st_Sess.executeQuery("SELECT `table-name`,`subject`,`faculty` FROM `table-details` WHERE branch=\""+brnch+"\" and semester=\""+sem+"\"");
     	%>
     	<script>
@@ -460,7 +460,7 @@ function load_data(subval){
     		
     		count2++;
     	}
-    	
+    	con2.close();
        %>
       
     </tbody>
