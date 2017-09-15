@@ -436,7 +436,7 @@ function load_data(subval){
     		<%
     		
     		sql3="select * from `"+rs_Sess.getString("table-name")+"` where Enroll=\""+enrollment+"\"";
-    		st3=connection.createStatement();
+    		st3=con2.createStatement();
     		rs3=st3.executeQuery(sql3);
     		while(rs3.next()){
     			
