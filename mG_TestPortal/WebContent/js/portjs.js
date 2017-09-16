@@ -1,8 +1,9 @@
-
+var sumOfOutof="--";
+var sumOfObtained="--";
 
 $(document).ready(function(){
 	for (var i =0 ; i<sub.length; i++) {
-		$("#sub-frame").append("<center><button class=\"sel-sub\" val=\""+i+"\">"+sub[i]+"</button></center><br>");
+		$("#sub-frame-tbody").append("<tr><td><button class=\"btn sel-sub\" val=\""+i+"\">"+sub[i]+"</button></td><td>"+sumOfOutof+"</td><td>"+sumOfObtained+"</td></tr>");
 	}
 	
 	
@@ -11,8 +12,6 @@ $("#frame-2").hide();
 $("#btn-history").click(function(){
 	$("#frame-1").hide();
 	$("#sess-frame").hide();
-	
-
 	$("#frame-2").fadeIn();
 
 
@@ -21,10 +20,7 @@ $("#btn-home").click(function(){
 	$("#frame-2").hide();
 	$("#sess-frame").hide();
 	$("#frame-1").fadeIn();
-
-
-
-
+	
 })
 $("#changepass").click(function(){
 	$("#records").hide();
@@ -52,20 +48,24 @@ $(".sel-sub").click(function(){
 	$("#sub-frame").hide();
 	$("#marks-frame").fadeIn();
 	
+	
 	load_data($(this).attr("val"));
+	
 
 
 
 
 })
 
-
+$("#back").hover(function(){
+	$(this).toggleClass("whiteback");
+})
 
 $("#back").click(function(){
 	console.log("here");
 	$("#marks-frame").hide();
 	$("#sub-frame").fadeIn();
-
+ 
 })
 
 

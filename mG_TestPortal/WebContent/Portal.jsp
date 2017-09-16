@@ -30,7 +30,9 @@ pageEncoding="ISO-8859-1"%>
 <script>
 
 var data=[];
+var outof=[];
 var temp=[];
+var temp1=[];
 var c=[];
 c.push("Class Attended TH");
 c.push("Class Attended PR");
@@ -52,33 +54,14 @@ c.push("Tutorials/Prob Solving");
 c.push("Lab Performance");
 c.push("Lab Work Marks");
 c.push("Vive Voce/ Assignments");
-var outof=[];
-outof.push("60");
-outof.push("20");
-outof.push("80");
-outof.push("100");
-outof.push("10");
-outof.push("5");
-outof.push("20");
-outof.push("5");
-outof.push("20");
-outof.push("5");
-outof.push("5");
-outof.push("5");
-outof.push("10");
-outof.push("10");
-outof.push("5");
-outof.push("5");
-outof.push("10");
-outof.push("5");
-outof.push("20");
-outof.push("20");
+
+
 
 function load_data(subval){
 	$("#table-body").html("");
 	//alert(subval);
 		for(var p=0;p<c.length;p++){
-	  	    $("#table-body").append("<tr class=\"active\" style=\"text-align:center;font-family:georgia;font-weight:bold;\"><td>"+c[p]+"</td><td>"+outof[p]+"</td><td>"+data[subval][p]+"</td></tr>");
+	  	    $("#table-body").append("<tr class=\"active\" style=\"text-align:center;font-family:georgia;font-weight:bold;\"><td>"+c[p]+"</td><td>"+outof[subval][p]+"</td><td>"+data[subval][p]+"</td></tr>");
 			}
 	}
 
@@ -110,6 +93,7 @@ function load_data(subval){
           String name;
           String brnch;
           String sql3;
+          String sql4;
           int sem;
           boolean testFlag;
           Connection connection;
@@ -118,6 +102,8 @@ function load_data(subval){
           Statement st_ctest;
           Statement st2;
           Statement st3;
+          Statement st4;
+          ResultSet rs4;
           ResultSet rs3;
           ResultSet rs_exp;
           ResultSet rs;
@@ -258,15 +244,18 @@ function load_data(subval){
       <!-- ......................start body........................ -->
      
       <div class="container">
-        <div class="row">
-              <div class="col-sm-11">
+        <div class="row header-row">
+        	<!--  <div class="col-sm-1 col-xs-1">
+        		<button class="btn btn-loginback pull-right" id="back" ><span class="glyphicon glyphicon-arrow-left"></span></button>
+        	</div>-->
+              <div class="col-sm-11 col-xs-11">
                       <div class="btn-group btn-group-justified ">
                           <a href="#" class="btn btn-success" id="btn-home">Home</a>
                           <a href="#" class="btn btn-success" id="btn-history">History</a>
                          <!--  <a href="#" class="btn btn-success" id="btn-feed">Feed</a>  -->
                       </div>
               </div>
-              <div class="col-sm-1">
+              <div class="col-sm-1 col-xs-1 ">
                       <button class="btn btn-next " id="lgout" ><span class="glyphicon glyphicon-log-out"></span></button>
               </div>
         </div>
@@ -287,7 +276,7 @@ function load_data(subval){
 
                    </div>
 
-                  <div class="col-sm-8" >
+                  <div class="col-sm-9" >
                   <!-- .................................Links....................... -->
                           <div id="records">
                           	<div class="row">
@@ -434,10 +423,29 @@ function load_data(subval){
     		</script>
     
     		<%
-    		
+    		sql4="select * from `"+rs_Sess.getString("table-name")+"` where ClassRoll='0'";
     		sql3="select * from `"+rs_Sess.getString("table-name")+"` where Enroll=\""+enrollment+"\"";
+    		st4=con2.createStatement();
     		st3=con2.createStatement();
+    		rs4=st4.executeQuery(sql4);
     		rs3=st3.executeQuery(sql3);
+			while(rs4.next()){
+    			
+    			for(int j=1;j<=20;j++){
+    			%>
+    			<script>
+    				temp1.push("<%=rs4.getString(3+j)%>");
+    			</script>
+    			<%	
+    		}
+    			%>
+        		<script>
+        			outof.push(temp1);
+        			temp1=[];
+        		</script>
+        		
+        		<%
+			}
     		while(rs3.next()){
     			
     			for(int j=1;j<=20;j++){
@@ -478,15 +486,31 @@ function load_data(subval){
 
 
 
-            <div  class="frames frame-sub" id="sub-frame"></div>
+            <div  class="frames frame-sub" id="sub-frame">
+            <div class="panel panel-info">
+            <div class="panel-heading">Select Subject for Detailed View.</div>
+  				<table class="table">
+  					<thead>
+  					<th>Subject</th>
+  					<th>Out of</th>
+  					<th>Obtained</th>
+  					</thead>
+  					<tbody id="sub-frame-tbody">
+  					</tbody>
+  				</table>
+			</div>
+            </div>
 
             <div  class="frame-marks" id="marks-frame">
-                <button class="btn btn-loginback" id="back" ><span class="glyphicon glyphicon-arrow-left"></span></button>
+                
                 
       <div  id="sess-table">  
       <table class="table" >
  			    <thead>
- 				<th>CRITERIA</th>
+ 			    
+ 				<th><button class="btn btn-loginback pull-left" id="back"><span class="glyphicon glyphicon-arrow-left"></span></button>
+ 				CRITERIA
+ 				</th>
  				<th>OUT OF</th>
  				<th>OBTAINED MARKS</th>
  				</thead>
