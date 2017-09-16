@@ -13,7 +13,7 @@
     <description>Location to store uploaded file</description> 
     <param-name>file-upload</param-name> 
     <param-value>
-         D:/PROJECTS/mG_TestPortal/Online-Resource/
+         D:/Online-Resource/
      </param-value> 
 </context-param>
    <context-param> 

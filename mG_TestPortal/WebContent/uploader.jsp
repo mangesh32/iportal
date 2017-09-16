@@ -47,8 +47,8 @@ pageEncoding="ISO-8859-1"%>
 	int maxMemSize = 25000 * 1024;
 	
 	String filePath = context.getInitParameter("file-upload");
-
-   // Verify the content type
+	//System.out.println("file path is ::"+filePath);
+    // Verify the content type
    String contentType = request.getContentType();
    if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
