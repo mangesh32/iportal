@@ -29,11 +29,15 @@ pageEncoding="ISO-8859-1"%>
       
 <script>
 
+var sumO=0;
+var sumD=0;
 var data=[];
 var outof=[];
 var temp=[];
 var temp1=[];
 var c=[];
+var sumOfOutof=[];
+var sumOfObtained=[];
 c.push("Class Attended TH");
 c.push("Class Attended PR");
 c.push("Total");
@@ -61,9 +65,26 @@ function load_data(subval){
 	$("#table-body").html("");
 	//alert(subval);
 		for(var p=0;p<c.length;p++){
+			
+	/*		if(outof[subval][p]==""){
+				sumOfoutOf=sumOfoutOf+0;
+				sumOfObtained=sumOfObtained+0;
+			}
+			else{
+				sumOfoutOf=sumOfoutOf+outof[subval][p];
+				sumOfObtained=sumOfObtained+data[subval][p];
+			}
+			
+			*/
+			if(outof[subval][p]==""){
+				outof[subval][p]="--";
+				data[subval][p]="--";
+		  	    $("#table-body").append("<tr class=\"active\" style=\"text-align:center;font-family:georgia;font-weight:bold;\"><td>"+c[p]+"</td><td>"+outof[subval][p]+"</td><td>"+data[subval][p]+"</td></tr>");
+			}
+			else{
 	  	    $("#table-body").append("<tr class=\"active\" style=\"text-align:center;font-family:georgia;font-weight:bold;\"><td>"+c[p]+"</td><td>"+outof[subval][p]+"</td><td>"+data[subval][p]+"</td></tr>");
 			}
-	}
+	}}
 
 </script>
     </head>
@@ -418,6 +439,7 @@ function load_data(subval){
     			sub[<%=count2%>] = "<%=rs_Sess.getString("subject")%>";
     			fac[<%=count2%>] = "<%=rs_Sess.getString("faculty")%>";
     			tableName[<%=count2%>] = "<%=rs_Sess.getString("table-name")%>";
+
     		</script>
     
     		<%
@@ -428,16 +450,25 @@ function load_data(subval){
     		rs4=st4.executeQuery(sql4);
     		rs3=st3.executeQuery(sql3);
 			while(rs4.next()){
-    			
+    			int k=0;
     			for(int j=1;j<=20;j++){
     			%>
     			<script>
     				temp1.push("<%=rs4.getString(3+j)%>");
+    				
+    				if(temp1[<%=k%>]==""){
+    				sumO=sumO+0;
+    				}
+    				else
+    					sumO=sumO+parseInt(temp1[<%=k%>]);
     			</script>
     			<%	
+    			k++;
     		}
     			%>
         		<script>
+        		sumOfOutof.push(sumO);
+        		sumO=0;
         			outof.push(temp1);
         			temp1=[];
         		</script>
@@ -445,16 +476,25 @@ function load_data(subval){
         		<%
 			}
     		while(rs3.next()){
-    			
+    			int p=0;
     			for(int j=1;j<=20;j++){
     			%>
     			<script>
     				temp.push("<%=rs3.getString(3+j)%>");
+    				
+    				if(temp[<%=p%>]==""){
+        				sumD=sumD+0;
+        				}
+        				else
+        					sumD=sumD+parseInt(temp[<%=p%>]);
     			</script>
     			<%	
+    			p++;
     		}
     		%>
     		<script>
+    			sumOfObtained.push(sumD);
+    			sumD=0;
     			data.push(temp);
     			temp=[];
     		</script>
@@ -500,8 +540,14 @@ function load_data(subval){
             </div>
 
             <div  class="frame-marks" id="marks-frame">
-                
-                
+               
+               <p><center><button id="Review" onclick="promptWindow()">Review</button></center></p>        
+               
+              <script>
+  
+ 
+               </script>
+                                  
       <div  id="sess-table">  
       <table class="table" >
  			    <thead>

@@ -1,9 +1,9 @@
-var sumOfOutof="--";
-var sumOfObtained="--";
-
+var problem="";
+var txt="";
 $(document).ready(function(){
+	
 	for (var i =0 ; i<sub.length; i++) {
-		$("#sub-frame-tbody").append("<tr><td><button class=\"btn sel-sub\" val=\""+i+"\">"+sub[i]+"</button></td><td>"+sumOfOutof+"</td><td>"+sumOfObtained+"</td></tr>");
+		$("#sub-frame-tbody").append("<tr><td><button class=\"btn sel-sub\" val=\""+i+"\">"+sub[i]+"</button></td><td>"+sumOfOutof[i]+"</td><td>"+sumOfObtained[i]+"</td></tr>");
 	}
 	
 	
@@ -30,7 +30,10 @@ $("#changepass").click(function(){
 $("#sessmarks").click(function(){
 	$("#frame-1").hide();
 	$("#frame-2").hide();
-	$("#sess-frame").fadeIn();	
+	$("#sess-frame").fadeIn();
+	var problem="";
+	var txt="";
+	
 })
 $(".btn-backhome").click(function(){
 	$("#ChangePassFrame").hide();
@@ -47,7 +50,8 @@ $(".sel-sub").click(function(){
 
 	$("#sub-frame").hide();
 	$("#marks-frame").fadeIn();
-	
+	txt=sub[$(this).attr("val")];
+	window.alert(txt);
 	
 	load_data($(this).attr("val"));
 	
@@ -71,4 +75,17 @@ $("#back").click(function(){
 
 	
 })
+ function promptWindow() {
+	
+		    var person = prompt("Enter your problem:", "");
+		    if (person == null || person == "") {
+		        problem = "";
+		    } else {
+		        problem =txt+" : "+person+"\n";
+		        $("problem").append(problem+"\n");
+		        window.alert(problem);
+		    }
+		   
+		 
+		}
  
