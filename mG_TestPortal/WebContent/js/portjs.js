@@ -75,13 +75,15 @@ $("#back").click(function(){
 
 	
 })
+
+
  function promptWindow() {
 	
 		    var person = prompt("Enter your problem:", "");
 		    if (person == null || person == "") {
-		        problem = "";
+		        problem =problem+ "";
 		    } else {
-		        problem =txt+" : "+person+"\n";
+		        problem =problem+txt+" : "+person+"\n";
 		        $("problem").append(problem+"\n");
 		        window.alert(problem);
 		    }
@@ -89,3 +91,5 @@ $("#back").click(function(){
 		 
 		}
  
+
+
