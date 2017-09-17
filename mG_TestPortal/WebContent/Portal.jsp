@@ -245,17 +245,15 @@ function load_data(subval){
      
       <div class="container">
         <div class="row header-row">
-        	<!--  <div class="col-sm-1 col-xs-1">
-        		<button class="btn btn-loginback pull-right" id="back" ><span class="glyphicon glyphicon-arrow-left"></span></button>
-        	</div>-->
-              <div class="col-sm-11 col-xs-11">
+        	
+              <div class="col-sm-11 col-xs-10">
                       <div class="btn-group btn-group-justified ">
                           <a href="#" class="btn btn-success" id="btn-home">Home</a>
                           <a href="#" class="btn btn-success" id="btn-history">History</a>
                          <!--  <a href="#" class="btn btn-success" id="btn-feed">Feed</a>  -->
                       </div>
               </div>
-              <div class="col-sm-1 col-xs-1 ">
+              <div class="col-sm-1 col-xs-2 ">
                       <button class="btn btn-next " id="lgout" ><span class="glyphicon glyphicon-log-out"></span></button>
               </div>
         </div>
@@ -267,7 +265,7 @@ function load_data(subval){
         </div>
 		
           <div class="row">
-                  <div class="col-sm-3">
+                  <div class="col-sm-3 ">
                         <img id="profile-img" class="profile-img-card" src="img/users/default.png" />
                          <p id="profile-name" class="profile-name-card"><%=name%></p><br>
                          <p style="font-size:14px;font-weight:bold;text-align:center;"><%=enrollment.toUpperCase()%></p>
