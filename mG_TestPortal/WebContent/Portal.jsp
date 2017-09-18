@@ -98,8 +98,8 @@ function load_data(subval){
     			  enrollment=session.getAttribute("enroll").toString();
     			  pass=session.getAttribute("pwd").toString();
     			  //String loginuser=session.getAttribute("loginuser").toString();
-    			  System.out.println(".............................");
-    			  System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
+    			  //System.out.println(".............................");
+    			  //System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
     			  response.setHeader("Cache-Control","no-cache");
     			  response.setHeader("Cache-Control","no-store");
     			  response.setHeader("Pragma","no-cache");
@@ -360,28 +360,12 @@ function load_data(subval){
        <!-- .................................HISTORY-START........................................ -->
        <div class="frames frame-2" id="frame-2">
        		
-       		<div class="row">
-       			<div class="col-sm-6">
-       			<div class="rcd">Total Test</div>
-       			</div>
-       			<div class="col-sm-6">
-       			<div class="rcd">Attemped Test</div>
-       			</div>
-       			
-       		</div>
-       		<div class="row">
-       			<div class="col-sm-6">
-       			<div class="rcd-val" id="ttest">##</div>
-       			</div>
-       			<div class="col-sm-6">
-       			<div class="rcd-val" id="attempted">##</div>
-       			</div>
-       			
-       		</div>
+       	
+       		
        		<br>
        		<div class=row >
-       		<div id="table">
-       		   <table class="table table-responsive" id="frame-2-table">
+       		<div id="table" class="table-responsive">
+       		   <table class="table " id="frame-2-table">
     <thead>
       <tr>
         <th>Date</th>
@@ -532,17 +516,20 @@ function load_data(subval){
             <div  class="frames frame-sub" id="sub-frame">
             <div class="panel panel-info">
             <div class="panel-heading">Select Subject for Detailed View.</div>
+            <div class="table-responsive">
   				<table class="table">
   					<thead>
   					<th>Subject</th>
   					<th>Out of</th>
   					<th>Obtained</th>
+  					<th>Status</th>
   					</thead>
   					<tbody id="sub-frame-tbody">
   					</tbody>
   				</table>
+  				</div>
 			</div>
-			 <p><center><button id="Submit" onclick="finalComment()">Submit</button></center></p>
+			 <p><center><button class="btn btn-success"id="Submit" onclick="finalComment()">Submit</button></center></p>
 			 
 			    <script>
               function finalComment(){
@@ -562,12 +549,12 @@ function load_data(subval){
 
             <div  class="frame-marks" id="marks-frame">
                
-               <p><center><button id="Review" onclick="promptWindow()">Review</button></center></p>        
+                
                
            
-                                  
-      <div  id="sess-table">  
-      <table class="table" >
+      <div class="row">
+      			 <div  id="sess-table" class="table-responsive col-sm-9">  
+     			 <table class="table " >
  			    <thead>
  			    
  				<th><button class="btn btn-loginback pull-left" id="back"><span class="glyphicon glyphicon-arrow-left"></span></button>
@@ -576,15 +563,18 @@ function load_data(subval){
  				<th>OUT OF</th>
  				<th>OBTAINED MARKS</th>
  				</thead>
-			<tbody id="table-body">
-			</tbody>
+				<tbody id="table-body">
+				</tbody>
 		
-      </table>
-      <script>
+     			 </table>        
+   			   </div>
+   			   <div class="sess_options col-sm-3" >
+   			   		<p><center><button class="btn btn-success" id="Review" onclick="promptWindow()">Ask For Review</button></center></p>
+   			   		<p><center><button class="btn btn-success" id="Review" onclick="promptWindow()">Mark as Verified</button></center></p>
+   			   </div>
+      </div>                            
      
-      </script>
-      
-      </div>
+     
        </div>
     </div>
  

@@ -37,6 +37,8 @@ try{
 	   session.setAttribute("loginuser", rs.getString("name"));
 	   session.setAttribute("enroll", enrollment);
 	   session.setAttribute("pwd", pass);
+	   System.out.println(".............................");
+	   System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
 	   response.sendRedirect("Portal.jsp");  
    }
    else{
