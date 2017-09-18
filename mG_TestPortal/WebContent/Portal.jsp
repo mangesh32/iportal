@@ -570,7 +570,7 @@ function load_data(subval){
    			   </div>
    			   <div class="sess_options col-sm-3" >
    			   		<p><center><button class="btn btn-success" id="Review" onclick="promptWindow()">Ask For Review</button></center></p>
-   			   		<p><center><button class="btn btn-success" id="Review" onclick="promptWindow()">Mark as Verified</button></center></p>
+   			   		<p><center><button class="btn btn-success" id="Review" >Mark as Verified</button></center></p>
    			   </div>
       </div>                            
      

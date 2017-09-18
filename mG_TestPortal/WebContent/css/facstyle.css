@@ -1,0 +1,58 @@
+h2   {color:white}
+p    {color:white}
+
+body, html {
+ 
+    /*background-image: linear-gradient(135deg, rgba(31,123,229,1) 0%, rgba(58,139,232,1) 47%, rgba(70,153,234,1) 92%, rgba(72,156,234,1) 100%);*/
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(135deg, white 0%, black 100%);
+    /*background-image: url("../img/wall.jpg");*/ 
+    background-size: 100% 100%;
+     background-attachment: fixed;
+     font-family:georgia;
+}
+.icons{cursor:pointer;
+	padding:4px;
+	box-shadow:4px 4px 17px #17191a;
+	font-size:15px;
+	/*width:200px;*/
+	text-align:center;}
+.icon-links{
+	height:50px;
+	width:50px;
+}
+.polaroid {
+	
+  padding:4px;
+  height:567px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+.navbar{
+	font-weight: 700;
+}
+/*--------------------------------------------------------------------------------------------*/
+@media screen and (max-width: 600px){
+    h2   {color:white}
+p    {color:white}
+
+body, html {
+ 
+    /*background-image: linear-gradient(135deg, rgba(31,123,229,1) 0%, rgba(58,139,232,1) 47%, rgba(70,153,234,1) 92%, rgba(72,156,234,1) 100%);*/
+    height: 100%;
+    background-repeat: no-repeat;
+    /*background-image: linear-gradient(135deg, rgba(31,123,229,1) 0%, rgba(58,139,232,1) 47%, rgba(70,153,234,1) 92%, rgba(72,156,234,1) 100%);*/
+    background-image: url("../img/wall.jpg"); 
+    background-size: 100% 100%;
+     background-attachment: fixed;
+    
+  font-family:georgia;
+  overflow: scroll;
+    
+}
+
+
+}
+
+

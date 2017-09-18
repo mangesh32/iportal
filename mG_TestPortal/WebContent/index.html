@@ -75,16 +75,17 @@
 			</div><br>
   			<img id="profile-img" class="profile-img-card" src="img/user.png" />
   			<p id="profile-name" class="profile-name-card"></p>
-  			<form class="form-signin" action="admin.jsp" method="post">
+  			<form class="form-signin" action="LogIn2.jsp" method="post">
   				<div class="row">
   					<div class="col-xs-9 col-sm-10">
-  						
-  						<input type="password" name="pass" id="inputPassword-admin" class="form-control txt-password" placeholder="Admin-Password" required>
+  						<input type="text" name="userid2" id="inputEmail" class="form-control txt-email" placeholder="Login ID" required autofocus>
+  						<input type="password" name="pass" id="inputPassword-admin" class="form-control txt-password" placeholder="Password" required>
   					
   						<div class="clearfix"></div>
   					</div>	
-  					<div class="col-xs-3 col-sm-2">
-  						<button class="btn btn-next"  type="submit"><span class="glyphicon glyphicon-share-alt"></span></button>
+  					<div class="col-xs-3 col-sm-2" >
+  						<button class="btn btn-next" style="margin-top: 25px;" type="submit"><span class="glyphicon glyphicon-share-alt"></span></button>
+  						
   					</div>	
   				</div>
   			</form><!-- /form -->
