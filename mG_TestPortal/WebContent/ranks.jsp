@@ -14,6 +14,24 @@
 				 <link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">
                 <%
                 try{
+                	 response.setHeader("Cache-Control","no-cache");
+          			  response.setHeader("Cache-Control","no-store");
+          			  response.setHeader("Pragma","no-cache");
+          			  response.setDateHeader ("Expires", 0);
+                	 if(session!=null){
+               		  if(session.getAttribute("loginuser")!=null){
+               			  //String loginuser=session.getAttribute("loginuser").toString();
+               			  //System.out.println(".............................");
+               			  System.out.println(session.getAttribute("loginuser")+" : Ranks.");
+               			 
+               			  
+               		  }else{
+               			  throw new Exception("Invalid User Login");
+               		  }
+               		 
+               	  }else{
+               		  throw new Exception("Invalid User Login");
+               	  }
                     String token=request.getParameter("token");
                     String dir=application.getRealPath("/")+"ranks.txt";
                     String time=request.getParameter("timetaken");
@@ -24,7 +42,7 @@
                     
                     String name=new String(Base64.getDecoder().decode(token),"utf-8");
                     name=name.substring(0,name.length()-5);
-                    System.out.println(name+" : ranks");
+                   // System.out.println(name+" : ranks");
                 %>   
       
             </head>
@@ -110,24 +128,28 @@
             System.out.println("..............................");
              %> 
                <script type="text/javascript">
-               setTimeout(function(){ window.location="success.html"; }, 1000);
+              // setTimeout(function(){ window.location="success.html"; }, 1000);
+              swal("Success","Login again to see results..","success");
+			setTimeout(function(){ window.location="logout.jsp"; }, 1000);
              </script>
              
              
              <%
          }catch(Exception e)
-         {System.out.println(e);
+         {//System.out.println(e);
          %><script type="text/javascript">         
-       	 setTimeout(function(){ window.location="index.html"; }, 1000);
+         swal("Access Denied!!", "You're being directed to login page..", "error");
+     	setTimeout(function(){ window.location="index.html"; }, 1000);
              </script><%
          }
              %>          
             </body>
             <%}catch(Exception asa){
-            	System.out.println(asa);
+            	//System.out.println(asa);
             %>
            	 <script>           	 
-           	 setTimeout(function(){ window.location="index.html"; }, 1000);
+           	//swal("Access Denied!!", "You're being directed to login page..", "error");
+        	window.location="index.html";
            	 </script><%
             } %>
 

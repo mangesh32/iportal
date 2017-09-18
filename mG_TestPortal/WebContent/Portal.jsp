@@ -97,8 +97,13 @@ function load_data(subval){
     		  if(session.getAttribute("loginuser")!=null){
     			  enrollment=session.getAttribute("enroll").toString();
     			  pass=session.getAttribute("pwd").toString();
+    			  //String loginuser=session.getAttribute("loginuser").toString();
     			  System.out.println(".............................");
     			  System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
+    			  response.setHeader("Cache-Control","no-cache");
+    			  response.setHeader("Cache-Control","no-store");
+    			  response.setHeader("Pragma","no-cache");
+    			  response.setDateHeader ("Expires", 0);
     			  
     		  }else{
     			  throw new Exception("Invalid User Login");
@@ -612,7 +617,7 @@ setTimeout(function(){ window.location="index.html"; }, 2000);
 	//System.out.println(fec);
 	%>
 	<script type="text/javascript">
-	swal("403 Forbidden!!", "You're being directed to login page..", "error");
+	swal("Access Denied!!", "You're being directed to login page..", "error");
 	setTimeout(function(){ window.location="index.html"; }, 1000);
 	//window.location="index.html";
 	</script><%

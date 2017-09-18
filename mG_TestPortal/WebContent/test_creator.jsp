@@ -20,6 +20,10 @@ pageEncoding="ISO-8859-1"%>
 <body>
 	<%
 	try{
+		response.setHeader("Cache-Control","no-cache");
+		  response.setHeader("Cache-Control","no-store");
+		  response.setHeader("Pragma","no-cache");
+		  response.setDateHeader ("Expires", 0);
 		  ServletContext context = pageContext.getServletContext();
 	  		String url_db = context.getInitParameter("address");
 	  		String id_db = context.getInitParameter("id");

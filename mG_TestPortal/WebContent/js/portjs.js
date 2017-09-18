@@ -51,7 +51,7 @@ $(".sel-sub").click(function(){
 	$("#sub-frame").hide();
 	$("#marks-frame").fadeIn();
 	txt=sub[$(this).attr("val")];
-	window.alert(txt);
+	
 	
 	load_data($(this).attr("val"));
 	
@@ -79,11 +79,10 @@ $("#back").click(function(){
 	
 		    var person = prompt("Enter your problem:", "");
 		    if (person == null || person == "") {
-		        problem = "";
+		        problem += "";
 		    } else {
-		        problem =txt+" : "+person+"\n";
-		        $("problem").append(problem+"\n");
-		        window.alert(problem);
+		        problem +=txt+" : "+person+"\n";
+		       
 		    }
 		   
 		 

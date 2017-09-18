@@ -361,6 +361,10 @@ th,td,tr{text-align:center;}
 	cursor:pointer;
 	margin:0px 0px 0px ;
 }
+#sub-frame-tbody{
+	font-weight: 600;
+	
+}
 /*--------------------------------------------------------------------------------------------*/
 @media screen and (max-width: 600px){
     h2   {color:white}

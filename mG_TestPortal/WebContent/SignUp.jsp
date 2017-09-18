@@ -18,7 +18,10 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
- 				<%
+ 				<%	response.setHeader("Cache-Control","no-cache");
+  			  response.setHeader("Cache-Control","no-store");
+  			  response.setHeader("Pragma","no-cache");
+  			  response.setDateHeader ("Expires", 0);
  					String enrollment=request.getParameter("enrollment").toUpperCase();
                     String name=request.getParameter("name").toUpperCase();
                     String pass=request.getParameter("pass");

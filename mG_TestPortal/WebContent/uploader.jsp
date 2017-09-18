@@ -19,7 +19,11 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
 	<%
-	try{
+	try{	
+		response.setHeader("Cache-Control","no-cache");
+		  response.setHeader("Cache-Control","no-store");
+		  response.setHeader("Pragma","no-cache");
+		  response.setDateHeader ("Expires", 0);
 		  ServletContext context = pageContext.getServletContext();
 	  		
 	  	 Class.forName("com.mysql.jdbc.Driver"); 

@@ -36,6 +36,10 @@
 	<% 
 	 try{
 	String pass ="no-password";pass=request.getParameter("pass");
+	response.setHeader("Cache-Control","no-cache");
+	  response.setHeader("Cache-Control","no-store");
+	  response.setHeader("Pragma","no-cache");
+	  response.setDateHeader ("Expires", 0);
 		
 		if(!pass.equals("cold_2000"))throw new Exception("Invaid User login --->>Admin Page :: Pass - "+pass);
 	  ServletContext context = pageContext.getServletContext();
