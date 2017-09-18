@@ -542,16 +542,29 @@ function load_data(subval){
   					</tbody>
   				</table>
 			</div>
+			 <p><center><button id="Submit" onclick="finalComment()">Submit</button></center></p>
+			 
+			    <script>
+              function finalComment(){
+
+            		if (confirm(problem) == true) {
+            		    window.alert("Gone to database");
+            		} else {
+            		    window.alert("You pressed cancel!");
+            		}
+            		
+            	}
+  
+ 
+               </script>
+			 
             </div>
 
             <div  class="frame-marks" id="marks-frame">
                
                <p><center><button id="Review" onclick="promptWindow()">Review</button></center></p>        
                
-              <script>
-  
- 
-               </script>
+           
                                   
       <div  id="sess-table">  
       <table class="table" >
