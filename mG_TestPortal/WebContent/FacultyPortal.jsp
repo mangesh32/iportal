@@ -42,7 +42,7 @@ var e=[],m=[];
     	  String userid="";
     	  String pass="";
     	  if(session!=null){
-    		  if(session.getAttribute("loginuser")!=null){
+    		  if(session.getAttribute("loginuser")!=null&&session.getAttribute("post")!=null){
     			  userid=session.getAttribute("enroll").toString();
     			  pass=session.getAttribute("pwd").toString();
     			  response.setHeader("Cache-Control","no-cache");

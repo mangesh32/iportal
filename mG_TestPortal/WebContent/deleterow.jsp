@@ -17,15 +17,18 @@ try{
 	
 Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sessional", "root", "");
-Statement st=con.createStatement();
 
-	String sql="delete from `com` where Enroll='"+enroll+"'and Msg='"+msg+"'";
-	st.executeUpdate(sql);
+
+	PreparedStatement ps=con.prepareStatement("delete from `com` where Enroll=? and Msg=?");
+	ps.setString(1,enroll);
+	ps.setString(2,msg);
+	ps.executeUpdate();
+	ps.close();
 
 
 }
 catch(Exception e)
-{e.printStackTrace();}
+{System.out.println("DeleteReview: "+e);}
 
 %>
 

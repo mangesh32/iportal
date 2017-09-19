@@ -45,6 +45,7 @@ try{
 	   session.setAttribute("loginuser", rs.getString("name"));
 	   session.setAttribute("enroll", userid);
 	   session.setAttribute("pwd", pass);
+	   session.setAttribute("post", "faculty");
 	   System.out.println(".............................");
 	   System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
 	   response.sendRedirect("FacultyPortal.jsp");  

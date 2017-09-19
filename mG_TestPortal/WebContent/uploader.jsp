@@ -20,10 +20,21 @@ pageEncoding="ISO-8859-1"%>
 <body>
 	<%
 	try{	
-		response.setHeader("Cache-Control","no-cache");
-		  response.setHeader("Cache-Control","no-store");
-		  response.setHeader("Pragma","no-cache");
-		  response.setDateHeader ("Expires", 0);
+		
+		if(session!=null){
+			  if(session.getAttribute("post")!=null){
+				  response.setHeader("Cache-Control","no-cache");
+				  response.setHeader("Cache-Control","no-store");
+				  response.setHeader("Pragma","no-cache");
+				  response.setDateHeader ("Expires", 0);
+				  
+			  }else{
+				  throw new Exception("Invalid User Login");
+			  }
+			 
+		  }else{
+			  throw new Exception("Invalid User Login");
+		  }
 		  ServletContext context = pageContext.getServletContext();
 	  		
 	  	 Class.forName("com.mysql.jdbc.Driver"); 
@@ -172,10 +183,28 @@ pageEncoding="ISO-8859-1"%>
 	
 	
 // Create table in database...........
+
 st1=connection.createStatement();
 String table_name=subject+"_"+branch+"_"+semester+"_"+section;
-String query_createtable="CREATE TABLE `sessional`.`"+table_name+"` ( `ClassRoll` INT(11) NOT NULL , `Enroll` VARCHAR(45) NOT NULL , `NameofStudent` VARCHAR(50) NOT NULL , `ClassAttendedTh` VARCHAR(11) NOT NULL , `ClassAttendedPr` VARCHAR(11) NOT NULL , `Total` VARCHAR(11) NOT NULL , `Att. %` VARCHAR(11) NOT NULL , `Att.marks10` VARCHAR(11) NOT NULL , `Att.marks5` VARCHAR(11) NOT NULL , `Mid1out20` VARCHAR(11) NOT NULL , `Mid1out5` VARCHAR(11) NOT NULL , `Mid2 out of 20` VARCHAR(11) NOT NULL , `Mid2 out of 5` VARCHAR(11) NOT NULL , `Teachers marks out of 5` VARCHAR(11) NOT NULL , `Tutorial out of 5` VARCHAR(11) NOT NULL , `Minor1` VARCHAR(11) NOT NULL , `Minor2` VARCHAR(11) NOT NULL , `Quiz` VARCHAR(11) NOT NULL , `Assignment` VARCHAR(11) NOT NULL , `Problem Solving` VARCHAR(11) NOT NULL , `Lab Performance` VARCHAR(11) NOT NULL , `Lab Marks` VARCHAR(11) NOT NULL , `Viva` VARCHAR(11) NOT NULL , PRIMARY KEY (`Enroll`)) ENGINE = InnoDB";
-st1.executeUpdate(query_createtable);
+String query_exist="SELECT 1 FROM `"+table_name+"` LIMIT 1";
+int alreadyExist=0;
+try{
+ResultSet rshas=st1.executeQuery(query_exist);
+if(rshas.next())
+{	String query_trucate="truncate `"+table_name+"`";
+	st1.executeUpdate(query_trucate);
+	alreadyExist=1;
+	System.out.println("Replaced Previous Table.");
+}
+}catch(com.mysql.jdbc.exceptions.MySQLSyntaxErrorException e1)
+{   System.out.println("Creating Fresh Table.");
+	String query_createtable="CREATE TABLE `sessional`.`"+table_name+"` ( `ClassRoll` INT(11) NOT NULL , `Enroll` VARCHAR(45) NOT NULL , `NameofStudent` VARCHAR(50) NOT NULL , `ClassAttendedTh` VARCHAR(11) NOT NULL , `ClassAttendedPr` VARCHAR(11) NOT NULL , `Total` VARCHAR(11) NOT NULL , `Att. %` VARCHAR(11) NOT NULL , `Att.marks10` VARCHAR(11) NOT NULL , `Att.marks5` VARCHAR(11) NOT NULL , `Mid1out20` VARCHAR(11) NOT NULL , `Mid1out5` VARCHAR(11) NOT NULL , `Mid2 out of 20` VARCHAR(11) NOT NULL , `Mid2 out of 5` VARCHAR(11) NOT NULL , `Teachers marks out of 5` VARCHAR(11) NOT NULL , `Tutorial out of 5` VARCHAR(11) NOT NULL , `Minor1` VARCHAR(11) NOT NULL , `Minor2` VARCHAR(11) NOT NULL , `Quiz` VARCHAR(11) NOT NULL , `Assignment` VARCHAR(11) NOT NULL , `Problem Solving` VARCHAR(11) NOT NULL , `Lab Performance` VARCHAR(11) NOT NULL , `Lab Marks` VARCHAR(11) NOT NULL , `Viva` VARCHAR(11) NOT NULL , PRIMARY KEY (`Enroll`)) ENGINE = InnoDB";
+	st1.executeUpdate(query_createtable);	
+}
+
+
+
+
 // table created!!!............
 
 //upload CSV...........
@@ -190,6 +219,7 @@ st1.executeUpdate(query_createtable);
 //........................................
 
 //make entry in table_details
+if(alreadyExist==0){
 		PreparedStatement ps2=connection.prepareStatement("insert into `table-details` values(?,?,?,?,?,?)");
      	ps2.setString(1,branch);
      	ps2.setString(2,semester+"");
@@ -199,7 +229,7 @@ st1.executeUpdate(query_createtable);
      	ps2.setString(6,table_name);
      	ps2.executeUpdate();	
      	ps2.close();
-
+      }
 
 
 
@@ -235,7 +265,7 @@ st1.executeUpdate(query_createtable);
 		
 	%>
 	<script>
-		swal("Success","Test Deployed !!","success");
+		swal("Success","DataSheet Uploaded !!","success");
 		setTimeout(function(){ window.location="FacultyPortal.jsp"; }, 2000);
 	
 		
@@ -244,11 +274,11 @@ st1.executeUpdate(query_createtable);
 	<%}
 }
 catch(Exception e)
-{	e.printStackTrace();
-	System.out.println("Creator "+e);
+{	
+	System.out.println("Sessional Uploader--> "+e);
 	%>
 	<script>
-		swal("Oops","Test Deployer Failed!!","error");
+		swal("Oops","Deployment Failed!!","error");
 		setTimeout(function(){ window.location="index.html"; }, 2000);
 	</script>
 	<%

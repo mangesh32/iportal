@@ -447,11 +447,10 @@ function load_data(subval){
     			<script>
     				temp1.push("<%=rs4.getString(3+j)%>");
     				
-    				if(temp1[<%=k%>]==""){
-    				sumO=sumO+0;
+    				if(Number(temp1[<%=k%>])){
+    					sumO+=Number(temp1[<%=k%>]);
     				}
-    				else
-    					sumO=sumO+parseInt(temp1[<%=k%>]);
+    				
     			</script>
     			<%	
     			k++;
@@ -472,12 +471,9 @@ function load_data(subval){
     			%>
     			<script>
     				temp.push("<%=rs3.getString(3+j)%>");
-    				
-    				if(temp[<%=p%>]==""){
-        				sumD=sumD+0;
-        				}
-        				else
-        					sumD=sumD+parseInt(temp[<%=p%>]);
+    				if(Number(temp[<%=p%>])){
+    					sumD+=Number(temp[<%=p%>]);
+    				}
     			</script>
     			<%	
     			p++;
