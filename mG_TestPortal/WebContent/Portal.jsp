@@ -179,6 +179,8 @@ function load_data(subval){
       name=rs.getString("name");
       brnch=rs.getString("branch");
       sem=rs.getInt("semester");
+      session.setAttribute("branch", brnch);
+	  session.setAttribute("semester", sem);
       
       //System.out.println(name+" : portal");
       testFlag=rs.getBoolean("testFlag");
@@ -529,21 +531,8 @@ function load_data(subval){
   				</table>
   				</div>
 			</div>
-			 <p><center><button class="btn btn-success"id="Submit" onclick="finalComment()">Submit</button></center></p>
+			
 			 
-			    <script>
-              function finalComment(){
-
-            		if (confirm(problem) == true) {
-            		    window.alert("Gone to database");
-            		} else {
-            		    window.alert("You pressed cancel!");
-            		}
-            		
-            	}
-  
- 
-               </script>
 			 
             </div>
 
@@ -569,8 +558,8 @@ function load_data(subval){
      			 </table>        
    			   </div>
    			   <div class="sess_options col-sm-3" >
-   			   		<p><center><button class="btn btn-success" id="Review" onclick="promptWindow()">Ask For Review</button></center></p>
-   			   		<p><center><button class="btn btn-success" id="Review" >Mark as Verified</button></center></p>
+   			   		<p><center><button class="btn btn-success" id="Review">Ask For Review</button></center></p>
+   			   		<p><center><button class="btn btn-success" id="mark" >Mark as Verified</button></center></p>
    			   </div>
       </div>                            
      
@@ -587,7 +576,9 @@ function load_data(subval){
 
     </div>
 
+<script>
 
+</script>
 
 
      <!-- ......................end body........................ -->

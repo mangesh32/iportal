@@ -2,6 +2,14 @@
 var problem="";
 var txt="";
 var review_status="No Review Requested";
+var ssub="",sfaculty="",smsg="";
+
+
+
+
+
+
+
 $(document).ready(function(){
 	
 	for (var i =0 ; i<sub.length; i++) {
@@ -52,7 +60,8 @@ $(".sel-sub").click(function(){
 
 	$("#sub-frame").hide();
 	$("#marks-frame").fadeIn();
-	txt=sub[$(this).attr("val")];
+	ssub=sub[$(this).attr("val")];
+	sfaculty=fac[$(this).attr("val")];
 	load_data($(this).attr("val"));
 	
 
@@ -72,23 +81,35 @@ $("#back").click(function(){
  
 })
 
-
+$("#Review").click(function(){
+	swal({
+		  title: "Provide details!",
+		  text: "Write ur problem here..:",
+		  type: "input",
+		  showCancelButton: true,
+		  closeOnConfirm: false,
+		  animation: "slide-from-top",
+		  inputPlaceholder: "Write something"
+		},
+		function(inputValue){
+		  if (inputValue === false) return false;
+		  
+		  if (inputValue === "") {
+		    swal.showInputError("You need to write something!");
+		    return false
+		  }
+		  smsg=inputValue;
+		  swal("Request Registered!!", "You wrote: " + inputValue, "success");
+		  $.post("virtual.jsp",
+				    {
+				        subject: ssub,
+				        faculty: sfaculty,
+				        msg:smsg
+				    });
+		});
 	
+});
+
 })
-
-
- function promptWindow() {
-	
-		    var person = prompt("Enter your problem:", "");
-		    if (person == null || person == "") {
-		        problem +=problem+ "";
-		    } else {
-		        problem +=problem+txt+" : "+person+"\n";
-		       }
-		   
-		 
-		}
- 
-
 
 

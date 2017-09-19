@@ -31,6 +31,7 @@ pageEncoding="ISO-8859-1"%>
 
 	//taking all required parameters------->
 	Boolean allgood=true;
+	String fac_name="";
 	Statement st1;
 	ResultSet rs1;
 	String query_count;
@@ -163,6 +164,7 @@ pageEncoding="ISO-8859-1"%>
     if((fi.getFieldName()).equals("branch")){branch=fi.getString().toUpperCase();}
     if((fi.getFieldName()).equals("semester")){semester=Integer.parseInt(fi.getString());}
     if((fi.getFieldName()).equals("section")){section=fi.getString();}
+    if((fi.getFieldName()).equals("fac_name")){fac_name=fi.getString();}
     
 }             
 }	//while
@@ -193,7 +195,7 @@ st1.executeUpdate(query_createtable);
      	ps2.setString(2,semester+"");
      	ps2.setString(3,section);
      	ps2.setString(4,subject);
-     	ps2.setString(5,"NULL");	
+     	ps2.setString(5,fac_name);	
      	ps2.setString(6,table_name);
      	ps2.executeUpdate();	
      	ps2.close();
@@ -212,7 +214,7 @@ st1.executeUpdate(query_createtable);
 
 
      	connection.close();
-     	
+     
      	
      	
      }catch(Exception ex){System.out.println(ex);}
@@ -234,7 +236,7 @@ st1.executeUpdate(query_createtable);
 	%>
 	<script>
 		swal("Success","Test Deployed !!","success");
-		//setTimeout(function(){ window.location="admin.jsp?pass=cold_2000"; }, 2000);
+		setTimeout(function(){ window.location="FacultyPortal.jsp"; }, 2000);
 	
 		
 		
