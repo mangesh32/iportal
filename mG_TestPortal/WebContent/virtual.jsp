@@ -9,6 +9,7 @@
     String msg=request.getParameter("msg");
     String sub=request.getParameter("subject");
     String faculty=request.getParameter("faculty");
+    String status=request.getParameter("status");
 
 try{
 	if(session!=null){
@@ -17,6 +18,7 @@ try{
 			  name=session.getAttribute("loginuser").toString();
 			  branch=session.getAttribute("branch").toString();
 			  sem=session.getAttribute("semester").toString();
+			  
 			  //String loginuser=session.getAttribute("loginuser").toString();
 			  //System.out.println(".............................");
 			  //System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
@@ -37,7 +39,7 @@ try{
 	Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sessional", "root", "");
 	Statement st=con.createStatement();
 	
-    PreparedStatement ps2=con.prepareStatement("insert into `com` values(?,?,?,?,?,?,?)");
+    PreparedStatement ps2=con.prepareStatement("insert into `com` values(?,?,?,?,?,?,?,?)");
  	ps2.setString(1,name);
  	ps2.setString(2,id);
  	ps2.setString(3,branch);
@@ -45,6 +47,7 @@ try{
  	ps2.setString(5,msg);	
  	ps2.setString(6,sub);
  	ps2.setString(7,faculty);
+ 	ps2.setString(8,status);
  	ps2.executeUpdate();	
  	ps2.close();
 	out.print("Request Registered!!");

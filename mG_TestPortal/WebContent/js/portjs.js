@@ -1,87 +1,86 @@
 
-var problem="";
-var txt="";
-var review_status="No Review Requested";
 var ssub="",sfaculty="",smsg="";
-
-
-
-
-
 
 
 $(document).ready(function(){
 	
 	for (var i =0 ; i<sub.length; i++) {
-		$("#sub-frame-tbody").append("<tr><td><button class=\"btn sel-sub\" val=\""+i+"\">"+sub[i]+"</button></td><td>"+sumOfOutof[i]+"</td><td>"+sumOfObtained[i]+"</td><td>"+review_status+"</td></tr>");
+		$("#sub-frame-tbody").append("<tr><td><button class=\"btn sel-sub\" val=\""+i+"\">"+sub[i]+"</button></td><td>"+sumOfOutof[i]+"</td><td>"+sumOfObtained[i]+"</td><td><button class=\"btn btn-success Review\" val=\""+i+"\">Ask For Review</button></td></tr>");
 	}
 	
+	for(var l=0;l<statusdata.length;l++)
+		 {
+		
+		 var tbody=document.getElementById("sub-frame-tbody");
+		  	for(var u=0;u<tbody.childElementCount;u++)
+		 	{
+		 		var btnvalue=tbody.children[u].children[0].children[0].innerHTML;
+		 		var statusvalue=tbody.children[0].children[3];
+		 		if(btnvalue==statusdata[l].sub){
+		 			statusvalue.innerHTML=statusdata[l].status;
+		 		}
+		 			
+		 	}
+		 
+		 
+		 }
 	
-
 $("#frame-2").hide();
 $("#btn-history").click(function(){
 	$("#frame-1").hide();
 	$("#sess-frame").hide();
 	$("#frame-2").fadeIn();
-
-
-})
+});
 $("#btn-home").click(function(){
 	$("#frame-2").hide();
 	$("#sess-frame").hide();
 	$("#frame-1").fadeIn();
 	
-})
+});
 $("#changepass").click(function(){
 	$("#records").hide();
 	$("#ChangePassFrame").fadeIn();
 	
-})
+});
 $("#sessmarks").click(function(){
 	$("#frame-1").hide();
 	$("#frame-2").hide();
 	$("#sess-frame").fadeIn();
-	var problem="";
-	var txt="";
-	
-})
+});
 $(".btn-backhome").click(function(){
 	$("#ChangePassFrame").hide();
 	$("#records").fadeIn();
-})
+});
 
 
 $("#lgout").click(function(){
 	window.location="logout.jsp";
-})
+});
 
 
 $(".sel-sub").click(function(){
 
 	$("#sub-frame").hide();
 	$("#marks-frame").fadeIn();
-	ssub=sub[$(this).attr("val")];
-	sfaculty=fac[$(this).attr("val")];
-	load_data($(this).attr("val"));
 	
-
-
-
-
-})
+	load_data($(this).attr("val"));
+});
 
 $("#back").hover(function(){
 	$(this).toggleClass("whiteback");
-})
+});
 
 $("#back").click(function(){
 	
 	$("#marks-frame").hide();
 	$("#sub-frame").fadeIn();
  
-})
+});
 
-$("#Review").click(function(){
+$(".Review").click(function(){
+	ssub=sub[$(this).attr("val")];
+	sfaculty=fac[$(this).attr("val")];
+		
 	swal({
 		  title: "Provide details!",
 		  text: "Write ur problem here..:",
@@ -104,12 +103,13 @@ $("#Review").click(function(){
 				    {
 				        subject: ssub,
 				        faculty: sfaculty,
-				        msg:smsg
+				        msg:smsg,
+				        status:"Requested"
 				    });
 		});
 	
 });
 
-})
+});
 
 

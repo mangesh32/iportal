@@ -19,9 +19,10 @@ Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sessional", "root", "");
 
 
-	PreparedStatement ps=con.prepareStatement("delete from `com` where Enroll=? and Msg=?");
-	ps.setString(1,enroll);
-	ps.setString(2,msg);
+	PreparedStatement ps=con.prepareStatement("UPDATE `com` SET `status`=? where Enroll=? and Msg=?");
+	ps.setString(1,"Solved");
+	ps.setString(2,enroll);
+	ps.setString(3,msg);
 	ps.executeUpdate();
 	ps.close();
 

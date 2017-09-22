@@ -203,9 +203,10 @@ var e=[],m=[];
 						</thead>
 						<tbody>
 						<%  con2=DriverManager.getConnection(url_db2,id_db,pass_db);
-							st2=con2.createStatement(); 
-							sql2="select * from `com` where faculty='"+name+"'"; 
-							rs2=st2.executeQuery(sql2); 
+							PreparedStatement ps2=con2.prepareStatement("select * from `com` where faculty=? and status=?");
+							ps2.setString(1,name);
+							ps2.setString(2,"Requested");
+							rs2=ps2.executeQuery(); 
 							int count=1; 
 							while(rs2.next()) { %>
 							<script> 
