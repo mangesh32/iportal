@@ -235,7 +235,12 @@ if(alreadyExist==0){
 
 
 //...................
-
+		PreparedStatement ps5= connection.prepareStatement("delete from `com` where Branch=? and Subject=? and Semester=?");
+		ps5.setString(1,branch);
+		ps5.setString(2,subject);
+		ps5.setString(3,semester+"");
+		ps5.executeUpdate();
+		
 
 
 
