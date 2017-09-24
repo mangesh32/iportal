@@ -10,6 +10,18 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
+
+
+
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFSheet" %>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFWorkbook" %>
+<%@ page import="org.apache.poi.ss.usermodel.Cell" %>
+<%@ page import="org.apache.poi.ss.usermodel.Row" %>
+<%@ page import="java.util.Iterator" %>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,8 +126,71 @@ pageEncoding="ISO-8859-1"%>
            // System.out.println("File: "+fileName);
             System.out.println(">>>>> "+fileName+" Uploaded !!!");
         	//------------------file compilation----------------------
-        	String ext=fileName.substring(fileName.lastIndexOf(".")+1);
+       
         	
+        	
+        	//...........coverting xls to csv...........
+        	File outputFile = new File("D:\\Test1.csv");
+        	
+        	
+        	 try {
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            // Get the workbook object for XLSX file
+            XSSFWorkbook wBook = new XSSFWorkbook(
+                    new FileInputStream(file));
+            // Get first sheet from the workbook
+            XSSFSheet sheet = wBook.getSheetAt(0);
+            Row row;
+            Cell cell;
+            // Iterate through each rows from first sheet
+            Iterator<Row> rowIterator = sheet.iterator();
+			System.out.println("HI");
+            while (rowIterator.hasNext()) {
+                row = rowIterator.next();
+
+                // For each row, iterate through each columns
+                Iterator<Cell> cellIterator = row.cellIterator();
+                while (cellIterator.hasNext()) {
+
+                    cell = cellIterator.next();
+        	
+                    switch (cell.getCellType()) {
+                    case Cell.CELL_TYPE_BOOLEAN:
+                        data.append(cell.getBooleanCellValue() + ",");
+
+                        break;
+                    case Cell.CELL_TYPE_NUMERIC:
+                        data.append(cell.getNumericCellValue() + ",");
+
+                        break;
+                    case Cell.CELL_TYPE_STRING:
+                        data.append(cell.getStringCellValue() + ",");
+                        break;
+
+                    case Cell.CELL_TYPE_BLANK:
+                        data.append("" + ",");
+                        break;
+                    default:
+                        data.append(cell + ",");
+                    }
+                }
+            }
+
+            fos.write(data.toString().getBytes());
+            fos.close();
+
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
+    }
+        	
+         String outputfilename = outputFile.getName();
+      	String ext=outputfilename.substring(outputfilename.lastIndexOf(".")+1);   
+      	System.out.println("HI");
+        	
+        	
+        	//...........end of covertion...............
+        	System.out.println("HI");
         	if(ext.equals("csv"))
         	{
         	Statement csheetst=connection.createStatement();
@@ -124,7 +199,7 @@ pageEncoding="ISO-8859-1"%>
         	// csv modification acc to sql import...
         	
         			try {
-			FileReader fin=new FileReader(filePath+fileName);
+			FileReader fin=new FileReader("D:\\"+outputfilename);
 			System.out.println("file-open-read");
 			FileWriter fout=new FileWriter(filePath+"sheet2.csv");
 			System.out.println("file-open-write");
@@ -164,9 +239,15 @@ pageEncoding="ISO-8859-1"%>
         	
         	
         	*/
-        	
+        			System.out.println("HI");	
         }
-        else{allgood=false;throw new Exception("wrong file format!! ");}
+        else{
+        	
+        	System.out.println("HI");
+        	
+       	
+        	allgood=false;
+        throw new Exception("wrong file format!! ");}
         
     }else{
     
