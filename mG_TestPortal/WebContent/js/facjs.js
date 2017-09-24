@@ -39,7 +39,7 @@ $(document).ready(function(){
 	$("#signup_submit").click(function(){
 		var flag=false;
 		
-		if($("#file-3").val().slice($("#file-3").val().lastIndexOf(".")+1)=="csv")
+		//if($("#file-3").val().slice($("#file-3").val().lastIndexOf(".")+1)=="xlsx")
 		flag=true;
 		if(flag==false)swal("Error","Wrong File Format !!!","error");
 		return flag;

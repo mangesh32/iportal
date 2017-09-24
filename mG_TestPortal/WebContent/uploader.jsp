@@ -13,10 +13,10 @@ pageEncoding="ISO-8859-1"%>
 
 
 
-<%@ page import="org.apache.poi.hssf.usermodel.HSSFSheet" %>
-<%@ page import="org.apache.poi.hssf.usermodel.HSSFWorkbook" %>
-<%@ page import="org.apache.poi.ss.usermodel.Cell" %>
-<%@ page import="org.apache.poi.ss.usermodel.Row" %>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFSheet"%>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFWorkbook"%>
+<%@ page import="org.apache.poi.ss.usermodel.Cell"%>
+<%@ page import="org.apache.poi.ss.usermodel.Row"%>
 <%@ page import="java.util.Iterator" %>
 
 
@@ -31,26 +31,32 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
 	<%
-	try{	
-		
-		if(session!=null){
-			  if(session.getAttribute("post")!=null){
-				  response.setHeader("Cache-Control","no-cache");
-				  response.setHeader("Cache-Control","no-store");
-				  response.setHeader("Pragma","no-cache");
-				  response.setDateHeader ("Expires", 0);
-				  
-			  }else{
-				  throw new Exception("Invalid User Login");
-			  }
-			 
-		  }else{
-			  throw new Exception("Invalid User Login");
-		  }
-		  ServletContext context = pageContext.getServletContext();
-	  		
-	  	 Class.forName("com.mysql.jdbc.Driver"); 
-	      Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sessional", "root", "");
+try
+{	
+
+  if(session!=null)
+  {
+    if(session.getAttribute("post")!=null)
+    {
+    response.setHeader("Cache-Control","no-cache");
+    response.setHeader("Cache-Control","no-store");
+    response.setHeader("Pragma","no-cache");
+    response.setDateHeader ("Expires", 0);
+    }
+    else
+    {
+    throw new Exception("Invalid User Login");
+    }
+
+  }
+  else
+  {
+  throw new Exception("Invalid User Login");
+  }
+  ServletContext context = pageContext.getServletContext();
+
+  Class.forName("com.mysql.jdbc.Driver"); 
+  Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sessional", "root", "");
 
 	//taking all required parameters------->
 	Boolean allgood=true;
@@ -61,9 +67,10 @@ pageEncoding="ISO-8859-1"%>
 	String subject="",branch="",section="";
 	int semester=0;
 	String fieldName="",fileName="";
+	File outputFile = new File("D:\\Test1.csv");
 	
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
+  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+  Date date = new Date();
          String tarik=dateFormat.format(date);//date
          
          
@@ -77,10 +84,11 @@ pageEncoding="ISO-8859-1"%>
 	String filePath = context.getInitParameter("file-upload");
 	//System.out.println("file path is ::"+filePath);
     // Verify the content type
-   String contentType = request.getContentType();
-   if ((contentType.indexOf("multipart/form-data") >= 0)) {
+  String contentType = request.getContentType();
+  if ((contentType.indexOf("multipart/form-data") >= 0)) 
+  {
 
-   DiskFileItemFactory factory = new DiskFileItemFactory();
+       DiskFileItemFactory factory = new DiskFileItemFactory();
       // maximum size that will be stored in memory
       factory.setSizeThreshold(maxMemSize);
       // Location to save data that is larger than maxMemSize.
@@ -90,7 +98,8 @@ pageEncoding="ISO-8859-1"%>
       ServletFileUpload upload = new ServletFileUpload(factory);
       // maximum file size to be uploaded.
       upload.setSizeMax( maxFileSize );
-      try{ 
+    try
+    { 
          // Parse the request to get file items.
          List fileItems = upload.parseRequest(request);
 
@@ -98,136 +107,147 @@ pageEncoding="ISO-8859-1"%>
          Iterator i = fileItems.iterator();
          
          
-         while ( i.hasNext () ) 
-         {
+      while ( i.hasNext () ) 
+      {
          FileItem fi = (FileItem)i.next();
-         if ( !fi.isFormField () )	
-         {
+        if ( !fi.isFormField () )	
+        {
             // Get the uploaded file parameters
             fieldName = fi.getFieldName();
             fileName = fi.getName();
             boolean isInMemory = fi.isInMemory();
             long sizeInBytes = fi.getSize();
             // Write the file
-            if( fileName.lastIndexOf("\\") >= 0 ){
+            if( fileName.lastIndexOf("\\") >= 0 )
+          {
             file = new File( filePath + fileName.substring( fileName.lastIndexOf("\\"))) ;
-        }else{
-        file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-    }
-    fi.write( file ) ;
-    
-    
-    
+          }
+          else
+          {
+          file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+          }
+          fi.write( file ) ;
+
+
+
             //out.println("Uploaded Filename: " + filePath + fileName + "<br>");
             
             String cmd="";
             System.out.println("------------------------------------------------");
            // System.out.println("Path: "+filePath);
            // System.out.println("File: "+fileName);
-            System.out.println(">>>>> "+fileName+" Uploaded !!!");
+           System.out.println(">>>>> "+fileName+" Uploaded !!!");
         	//------------------file compilation----------------------
-       
+
         	
         	
         	//...........coverting xls to csv...........
-        	File outputFile = new File("D:\\Test1.csv");
         	
+        	StringBuffer data = new StringBuffer();
         	
-        	 try {
-            FileOutputStream fos = new FileOutputStream(outputFile);
+          try 
+          {
+          FileOutputStream fos = new FileOutputStream(outputFile);
             // Get the workbook object for XLSX file
-            XSSFWorkbook wBook = new XSSFWorkbook(
-                    new FileInputStream(file));
+            HSSFWorkbook wBook = new HSSFWorkbook(
+            new FileInputStream(file));
             // Get first sheet from the workbook
-            XSSFSheet sheet = wBook.getSheetAt(0);
+            HSSFSheet sheet = wBook.getSheetAt(0);
             Row row;
             Cell cell;
             // Iterate through each rows from first sheet
             Iterator<Row> rowIterator = sheet.iterator();
-			System.out.println("HI");
-            while (rowIterator.hasNext()) {
-                row = rowIterator.next();
+
+            while (rowIterator.hasNext()) 
+            {
+            row = rowIterator.next();
 
                 // For each row, iterate through each columns
                 Iterator<Cell> cellIterator = row.cellIterator();
-                while (cellIterator.hasNext()) {
+                while (cellIterator.hasNext()) 
+              {
 
-                    cell = cellIterator.next();
-        	
-                    switch (cell.getCellType()) {
-                    case Cell.CELL_TYPE_BOOLEAN:
-                        data.append(cell.getBooleanCellValue() + ",");
+                cell = cellIterator.next();
 
-                        break;
-                    case Cell.CELL_TYPE_NUMERIC:
-                        data.append(cell.getNumericCellValue() + ",");
+                switch (cell.getCellType()) 
+                {
+                case Cell.CELL_TYPE_BOOLEAN:
+                data.append(cell.getBooleanCellValue() + ",");
 
-                        break;
-                    case Cell.CELL_TYPE_STRING:
-                        data.append(cell.getStringCellValue() + ",");
-                        break;
+                break;
+                case Cell.CELL_TYPE_NUMERIC:
+                data.append(cell.getNumericCellValue() + ",");
 
-                    case Cell.CELL_TYPE_BLANK:
-                        data.append("" + ",");
-                        break;
-                    default:
-                        data.append(cell + ",");
-                    }
+                break;
+                case Cell.CELL_TYPE_STRING:
+                data.append(cell.getStringCellValue() + ",");
+                break;
+
+                case Cell.CELL_TYPE_BLANK:
+                data.append("" + ",");
+                break;
+                default:
+                data.append(cell + ",");
                 }
+              }data.append("\n");
             }
 
-            fos.write(data.toString().getBytes());
-            fos.close();
+          fos.write(data.toString().getBytes());
+          fos.close();
 
-        } catch (Exception ioe) {
-            ioe.printStackTrace();
-        }
-    }
-        	
-         String outputfilename = outputFile.getName();
-      	String ext=outputfilename.substring(outputfilename.lastIndexOf(".")+1);   
-      	System.out.println("HI");
-        	
-        	
+          } catch (Exception ioe) 
+          {
+          ioe.printStackTrace();
+          }
+        
+
+    String outputfilename = outputFile.getName();
+    String ext=outputfilename.substring(outputfilename.lastIndexOf(".")+1);   
+
+
+
         	//...........end of covertion...............
-        	System.out.println("HI");
+        	
         	if(ext.equals("csv"))
-        	{
-        	Statement csheetst=connection.createStatement();
+        {
+        	         Statement csheetst=connection.createStatement();
         	//csheetst.executeUpdate("TRUNCATE TABLE `sheet1`");
         	
         	// csv modification acc to sql import...
         	
-        			try {
-			FileReader fin=new FileReader("D:\\"+outputfilename);
-			System.out.println("file-open-read");
-			FileWriter fout=new FileWriter(filePath+"sheet2.csv");
-			System.out.println("file-open-write");
-			BufferedReader bufferedReader = new BufferedReader(fin);
-			String line;
-			while((line=bufferedReader.readLine() )!= null)
-			{
-				fout.write("@:");
-				fout.write(line);
-				fout.write(":@");
-				fout.write("\n");
-			}
-				
-			
-			System.out.println("file-written");
-			
-				fin.close();
-				fout.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+                try 
+                  {
+                   FileReader fin=new FileReader("D:\\"+outputfilename);
+                   System.out.println("file-open-read");
+                   FileWriter fout=new FileWriter(filePath+"sheet2.csv");
+                   System.out.println("file-open-write");
+                   BufferedReader bufferedReader = new BufferedReader(fin);
+                   String line;
+           while((line=bufferedReader.readLine() )!= null)
+           {
+             fout.write("@:");
+             fout.write(line);
+             fout.write(":@");
+             fout.write("\n");
+           }
+
+
+               System.out.println("file-written");
+
+              fin.close();
+              fout.close();
+          } catch (FileNotFoundException e) 
+          {
+			       // TODO Auto-generated catch block
+		          	e.printStackTrace();
+		      } catch (IOException e) 
+          {
+		      	// TODO Auto-generated catch block
+		    	e.printStackTrace();
+	       	}
+
 		
-        	
+
         	/*
         	
         	//......................................	
@@ -239,30 +259,34 @@ pageEncoding="ISO-8859-1"%>
         	
         	
         	*/
-        			System.out.println("HI");	
+
         }
-        else{
-        	
-        	System.out.println("HI");
-        	
-       	
-        	allgood=false;
+        else
+        {
+
+
+
+        allgood=false;
         throw new Exception("wrong file format!! ");}
         
-    }else{
-    
- 
-    if((fi.getFieldName()).equals("subject")){subject=fi.getString().toUpperCase();}
-    if((fi.getFieldName()).equals("branch")){branch=fi.getString().toUpperCase();}
-    if((fi.getFieldName()).equals("semester")){semester=Integer.parseInt(fi.getString());}
-    if((fi.getFieldName()).equals("section")){section=fi.getString();}
-    if((fi.getFieldName()).equals("fac_name")){fac_name=fi.getString();}
-    
-}             
+        }
+      
+  
+    else
+        {
+
+
+      if((fi.getFieldName()).equals("subject")){subject=fi.getString().toUpperCase();}
+      if((fi.getFieldName()).equals("branch")){branch=fi.getString().toUpperCase();}
+      if((fi.getFieldName()).equals("semester")){semester=Integer.parseInt(fi.getString());}
+      if((fi.getFieldName()).equals("section")){section=fi.getString();}
+      if((fi.getFieldName()).equals("fac_name")){fac_name=fi.getString();}
+
+    }             
 }	//while
-	
-	
-	
+
+
+
 // Create table in database...........
 
 st1=connection.createStatement();
@@ -273,14 +297,14 @@ try{
 ResultSet rshas=st1.executeQuery(query_exist);
 if(rshas.next())
 {	String query_trucate="truncate `"+table_name+"`";
-	st1.executeUpdate(query_trucate);
-	alreadyExist=1;
-	System.out.println("Replaced Previous Table.");
+st1.executeUpdate(query_trucate);
+alreadyExist=1;
+System.out.println("Replaced Previous Table.");
 }
 }catch(com.mysql.jdbc.exceptions.MySQLSyntaxErrorException e1)
 {   System.out.println("Creating Fresh Table.");
-	String query_createtable="CREATE TABLE `sessional`.`"+table_name+"` ( `ClassRoll` INT(11) NOT NULL , `Enroll` VARCHAR(45) NOT NULL , `NameofStudent` VARCHAR(50) NOT NULL , `ClassAttendedTh` VARCHAR(11) NOT NULL , `ClassAttendedPr` VARCHAR(11) NOT NULL , `Total` VARCHAR(11) NOT NULL , `Att. %` VARCHAR(11) NOT NULL , `Att.marks10` VARCHAR(11) NOT NULL , `Att.marks5` VARCHAR(11) NOT NULL , `Mid1out20` VARCHAR(11) NOT NULL , `Mid1out5` VARCHAR(11) NOT NULL , `Mid2 out of 20` VARCHAR(11) NOT NULL , `Mid2 out of 5` VARCHAR(11) NOT NULL , `Teachers marks out of 5` VARCHAR(11) NOT NULL , `Tutorial out of 5` VARCHAR(11) NOT NULL , `Minor1` VARCHAR(11) NOT NULL , `Minor2` VARCHAR(11) NOT NULL , `Quiz` VARCHAR(11) NOT NULL , `Assignment` VARCHAR(11) NOT NULL , `Problem Solving` VARCHAR(11) NOT NULL , `Lab Performance` VARCHAR(11) NOT NULL , `Lab Marks` VARCHAR(11) NOT NULL , `Viva` VARCHAR(11) NOT NULL , PRIMARY KEY (`Enroll`)) ENGINE = InnoDB";
-	st1.executeUpdate(query_createtable);	
+String query_createtable="CREATE TABLE `sessional`.`"+table_name+"` ( `ClassRoll` INT(11) NOT NULL , `Enroll` VARCHAR(45) NOT NULL , `NameofStudent` VARCHAR(50) NOT NULL , `ClassAttendedTh` VARCHAR(11) NOT NULL , `ClassAttendedPr` VARCHAR(11) NOT NULL , `Total` VARCHAR(11) NOT NULL , `Att. %` VARCHAR(11) NOT NULL , `Att.marks10` VARCHAR(11) NOT NULL , `Att.marks5` VARCHAR(11) NOT NULL , `Mid1out20` VARCHAR(11) NOT NULL , `Mid1out5` VARCHAR(11) NOT NULL , `Mid2 out of 20` VARCHAR(11) NOT NULL , `Mid2 out of 5` VARCHAR(11) NOT NULL , `Teachers marks out of 5` VARCHAR(11) NOT NULL , `Tutorial out of 5` VARCHAR(11) NOT NULL , `Minor1` VARCHAR(11) NOT NULL , `Minor2` VARCHAR(11) NOT NULL , `Quiz` VARCHAR(11) NOT NULL , `Assignment` VARCHAR(11) NOT NULL , `Problem Solving` VARCHAR(11) NOT NULL , `Lab Performance` VARCHAR(11) NOT NULL , `Lab Marks` VARCHAR(11) NOT NULL , `Viva` VARCHAR(11) NOT NULL , PRIMARY KEY (`Enroll`)) ENGINE = InnoDB";
+st1.executeUpdate(query_createtable);	
 }
 
 
@@ -291,37 +315,36 @@ if(rshas.next())
 //upload CSV...........
 
 
-			Statement st_up=connection.createStatement();
-        	String up_query="load data local infile '"+filePath+"sheet2.csv"+"' into table sessional."+table_name+" columns terminated by ',' enclosed by '\"'  lines starting by '@:' terminated by ':@' ignore 1 lines";
-        	
-        	st_up.executeUpdate(up_query);   
-        	System.out.println("DataSheet uploaded !!");
+Statement st_up=connection.createStatement();
+String up_query="load data local infile '"+filePath+"sheet2.csv"+"' into table sessional."+table_name+" columns terminated by ',' enclosed by '\"'  lines starting by '@:' terminated by ':@' ignore 1 lines";
+
+st_up.executeUpdate(up_query);   
+System.out.println("DataSheet uploaded !!");
 
 //........................................
 
 //make entry in table_details
 if(alreadyExist==0){
-		PreparedStatement ps2=connection.prepareStatement("insert into `table-details` values(?,?,?,?,?,?)");
-     	ps2.setString(1,branch);
-     	ps2.setString(2,semester+"");
-     	ps2.setString(3,section);
-     	ps2.setString(4,subject);
-     	ps2.setString(5,fac_name);	
-     	ps2.setString(6,table_name);
-     	ps2.executeUpdate();	
-     	ps2.close();
-      }
+PreparedStatement ps2=connection.prepareStatement("insert into `table-details` values(?,?,?,?,?,?)");
+ps2.setString(1,branch);
+ps2.setString(2,semester+"");
+ps2.setString(3,section);
+ps2.setString(4,subject);
+ps2.setString(5,fac_name);	
+ps2.setString(6,table_name);
+ps2.executeUpdate();	
+ps2.close();
+}
 
 
 
 
 //...................
-		PreparedStatement ps5= connection.prepareStatement("delete from `com` where Branch=? and Subject=? and Semester=?");
-		ps5.setString(1,branch);
-		ps5.setString(2,subject);
-		ps5.setString(3,semester+"");
-		ps5.executeUpdate();
-		
+PreparedStatement ps5= connection.prepareStatement("delete from `com` where Branch=? and Subject=? and Semester=?");
+ps5.setString(1,branch);
+ps5.setString(2,subject);
+ps5.setString(3,semester+"");
+ps5.executeUpdate();
 
 
 
@@ -329,35 +352,38 @@ if(alreadyExist==0){
 
 
 
-     	connection.close();
-     
-     	
-     	
-     }catch(Exception ex){System.out.println(ex);}
- }else{System.out.println("parameter error");}
- 
+
+connection.close();
+
+
+
+}catch(Exception ex)
+  {System.out.println(ex);}
+}else
+    {System.out.println("parameter error");}
+
 	//..................................
-	
-	
-	
-	
-	if(allgood){
 
-     	System.out.println("\nDetails:--\n  Subject: "+subject+"\n   Branch: "+branch+"\n   Semester: "+semester+"\n ");
-		System.out.println("Test Deployed!!");
-		System.out.println("-------------------------------------");
-		
-		
-		
-	%>
-	<script>
-		swal("Success","DataSheet Uploaded !!","success");
-		setTimeout(function(){ window.location="FacultyPortal.jsp"; }, 2000);
-	
-		
-		
-	</script>
-	<%}
+
+
+
+if(allgood){
+
+System.out.println("\nDetails:--\n  Subject: "+subject+"\n   Branch: "+branch+"\n   Semester: "+semester+"\n ");
+System.out.println("Test Deployed!!");
+System.out.println("-------------------------------------");
+
+
+
+%>
+<script>
+  swal("Success","DataSheet Uploaded !!","success");
+  setTimeout(function(){ window.location="FacultyPortal.jsp"; }, 2000);
+
+
+
+</script>
+<%}
 }
 catch(Exception e)
 {	
