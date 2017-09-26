@@ -11,6 +11,7 @@ body, html {
     background-size: 100% 100%;
      background-attachment: fixed;
   font-family:georgia;
+  
     
 }
 
@@ -336,6 +337,8 @@ th,td,tr{text-align:center;}
 	text-align:center;}
 #anssheet{cursor:not-allowed;}
 #ChangePassFrame{display:none;}
+#MidsemFrame{display:none;}
+#MidsemFrame label{color:white;}
 .recent_test{
 	margin-top:100px;
 	
@@ -361,11 +364,20 @@ th,td,tr{text-align:center;}
 	cursor:pointer;
 	margin:0px 0px 0px ;
 }
+#sub-frame-tbody{
+	font-weight: 600;
+	
+}
+.sess_options{
+  margin-top:100px;
+}
 /*--------------------------------------------------------------------------------------------*/
 @media screen and (max-width: 600px){
     h2   {color:white}
 p    {color:white}
-
+.sess_options{
+  margin:auto;
+}
 body, html {
  
     /*background-image: linear-gradient(135deg, rgba(31,123,229,1) 0%, rgba(58,139,232,1) 47%, rgba(70,153,234,1) 92%, rgba(72,156,234,1) 100%);*/
@@ -375,7 +387,9 @@ body, html {
     background-image: url("../img/wall.jpg"); 
     background-size: 100% 100%;
      background-attachment: fixed;
+    
   font-family:georgia;
+  overflow: scroll;
     
 }
 
@@ -515,14 +529,16 @@ body, html {
 }
 .btn-loginback{
 	 /*margin-top:10px;*/
-	 vertical-align:center;
+	
 	outline:none;
-    height: 30px;
-    width: 50px;
+	height:25px;
     /*margin:20px 20px 5px;*/
+    border-color:white;
+    
+    border-style:groove;
     border-radius: 30%;
-    background-color:black;
-    font-size: 20px;
+    background-color:#25272c;
+    font-size: 12px;
      cursor: pointer;
 }
 
@@ -710,6 +726,17 @@ th,td,tr{text-align:center;}
 .sel-sub{
 	cursor:pointer;
 	margin:0px 0px 0px ;
+}
+#sess-table{
+	margin:auto;
+	padding:0px 0px 0px;
+	display:table;
+	font-size:10px;
+}
+#sess-table th{
+		vertical-align:middle;
+		font-size:12px;
+	
 }
 
 }

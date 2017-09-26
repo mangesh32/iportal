@@ -1,34 +1,42 @@
-	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*" %>
- <%@ page import="java.io.*" %>
-    <%@ page import="java.text.*" %>
- <%@ page import="java.util.Date" %>
-<%@ page import="java.util.*" %>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="java.text.*"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <title>User Portal</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/portalstyle.css">
-  <script src="sweetalert-master/dist/sweetalert.min.js"></script>
-      <script src="js/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>User Portal</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/portjs.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-select.css" rel="stylesheet">
+<script src="js/bootstrap-select.js"></script>	
+<link rel="stylesheet" type="text/css" href="css/portalstyle.css">
+<script src="sweetalert-master/dist/sweetalert.min.js"></script>
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css"
+	href="sweetalert-master/dist/sweetalert.css">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
-      
-<script>
 
+<script>
+var statusdata=[];
 var sumO=0;
 var sumD=0;
 var data=[];
@@ -87,9 +95,9 @@ function load_data(subval){
 	}}
 
 </script>
-    </head>
-    <body>
-      <% 
+</head>
+<body>
+	<% 
       try{
     	  String enrollment="";
     	  String pass="";
@@ -97,8 +105,13 @@ function load_data(subval){
     		  if(session.getAttribute("loginuser")!=null){
     			  enrollment=session.getAttribute("enroll").toString();
     			  pass=session.getAttribute("pwd").toString();
-    			  System.out.println(".............................");
-    			  System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
+    			  //String loginuser=session.getAttribute("loginuser").toString();
+    			  //System.out.println(".............................");
+    			  //System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
+    			  response.setHeader("Cache-Control","no-cache");
+    			  response.setHeader("Cache-Control","no-store");
+    			  response.setHeader("Pragma","no-cache");
+    			  response.setDateHeader ("Expires", 0);
     			  
     		  }else{
     			  throw new Exception("Invalid User Login");
@@ -118,6 +131,7 @@ function load_data(subval){
           int sem;
           boolean testFlag;
           Connection connection;
+          Connection con2;
           Statement st_exp;
           Statement statement;
           Statement st_ctest;
@@ -140,6 +154,7 @@ function load_data(subval){
   		String pass_db = context.getInitParameter("pass");
   	 Class.forName("com.mysql.jdbc.Driver"); 
       connection = DriverManager.getConnection(url_db,id_db,pass_db);
+      con2=DriverManager.getConnection(url_db2,id_db,pass_db);
 
       //check date for 1 day expiration of test
  		st_exp=connection.createStatement();
@@ -174,6 +189,8 @@ function load_data(subval){
       name=rs.getString("name");
       brnch=rs.getString("branch");
       sem=rs.getInt("semester");
+      session.setAttribute("branch", brnch);
+	  session.setAttribute("semester", sem);
       
       //System.out.println(name+" : portal");
       testFlag=rs.getBoolean("testFlag");
@@ -183,19 +200,19 @@ function load_data(subval){
     	  String token=Base64.getEncoder().encodeToString((name+"coded").getBytes("utf-8")); 
     	  
     	  %>
-    	  	<script>
+	<script>
     	  		swal("Hey!!","You are enrolled for a test today..","success");
               	  			
     	  	</script>
-    	  	<body>
-    	  	<div class="container">
-    	  		
-    	  		<div class="code_frame" >
-    	  		 
-                <div class="row" >
-                 
-                   <h1 style="text-align:center">Test Details</h1>
-             	<%
+<body>
+	<div class="container">
+
+		<div class="code_frame">
+
+			<div class="row">
+
+				<h1 style="text-align: center">Test Details</h1>
+				<%
              	
              	
              	
@@ -216,179 +233,265 @@ function load_data(subval){
 					%>
 				<br>
 				<table class="table table-responsive">
-				<thead>
-					<tr>
-						<th>Subject</th>
-						<th><%=ctest_subject%></th>
-					</tr>					
-					<tr>
-						<th>Branch</th>
-						<th><%=ctest_branch%></th>	
-					</tr>
-					<tr>
-						<th>Semester</th>
-						<th><%=ctest_semester%></th>
-					</tr>
-				
-					<tr>
-						<th>Time-period</th>
-						<th><%=ctest_time%> minutes</th>
-					</tr>
-					<tr>
-						<th>Total Questions</th>
-						<th><%=ctest_tqus%></th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
+					<thead>
+						<tr>
+							<th>Subject</th>
+							<th><%=ctest_subject%></th>
+						</tr>
+						<tr>
+							<th>Branch</th>
+							<th><%=ctest_branch%></th>
+						</tr>
+						<tr>
+							<th>Semester</th>
+							<th><%=ctest_semester%></th>
+						</tr>
+
+						<tr>
+							<th>Time-period</th>
+							<th><%=ctest_time%> minutes</th>
+						</tr>
+						<tr>
+							<th>Total Questions</th>
+							<th><%=ctest_tqus%></th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
 				</table>
-                </div>
-                 
-               
-    	  		   
-    	  		</div>
-    	  		<div class="row" >
-    	  		<div class="col-sm-12">
-            <form action="main.jsp" method="post" >
-                  <input type="hidden" value="<%=token%>" name="token" />
-                 <button type="submit" id="start_test" class="btn btn-success pos-center" >Start</button>   
-            </form>
-                 </div>              
-                </div>
-    	  </div>
-    	  <%
+			</div>
+
+
+
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<form action="main.jsp" method="post">
+					<input type="hidden" value="<%=token%>" name="token" />
+					<button type="submit" id="start_test"
+						class="btn btn-success pos-center">Start</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<%
     	  //..............................CODE-FRAME-END.................................
        }
       else{
       %>
 
-      <!-- ......................start body........................ -->
-     
-      <div class="container">
-        <div class="row header-row">
-        	
-              <div class="col-sm-11 col-xs-10">
-                      <div class="btn-group btn-group-justified ">
-                          <a href="#" class="btn btn-success" id="btn-home">Home</a>
-                          <a href="#" class="btn btn-success" id="btn-history">History</a>
-                         <!--  <a href="#" class="btn btn-success" id="btn-feed">Feed</a>  -->
-                      </div>
-              </div>
-              <div class="col-sm-1 col-xs-2 ">
-                      <button class="btn btn-next " id="lgout" ><span class="glyphicon glyphicon-log-out"></span></button>
-              </div>
-        </div>
-        
+	<!-- ......................start body........................ -->
+
+	<div class="container">
+		<div class="row header-row">
+
+			<div class="col-sm-11 col-xs-10">
+				<div class="btn-group btn-group-justified ">
+					<a href="#" class="btn btn-success" id="btn-home">Home</a> <a
+						href="#" class="btn btn-success" id="btn-history">History</a>
+					<!--  <a href="#" class="btn btn-success" id="btn-feed">Feed</a>  -->
+				</div>
+			</div>
+			<div class="col-sm-1 col-xs-2 ">
+				<button class="btn btn-next " id="lgout">
+					<span class="glyphicon glyphicon-log-out"></span>
+				</button>
+			</div>
+		</div>
+
 		<!-- .................................HOME-START........................................ -->
-		
-        <div class="frames frame-1" id="frame-1">
-        <div id="blur-bg">
-        </div>
-		
-          <div class="row">
-                  <div class="col-sm-3 ">
-                        <img id="profile-img" class="profile-img-card" src="img/users/default.png" />
-                         <p id="profile-name" class="profile-name-card"><%=name%></p><br>
-                         <p style="font-size:14px;font-weight:bold;text-align:center;"><%=enrollment.toUpperCase()%></p>
-                         <p style="font-size:14px;font-weight:bold;text-align:center;"><%=sem%>th Sem</p>
-						 <p style="font-size:14px;font-weight:bold;text-align:center;"><%=brnch%></p>
 
-                   </div>
+		<div class="frames frame-1" id="frame-1">
+			<div id="blur-bg"></div>
 
-                  <div class="col-sm-9" >
-                  <!-- .................................Links....................... -->
-                          <div id="records">
-                          	<div class="row">
-                          	<div class="col-sm-4">
-                          		<p id="changepass" class="icons"><img src="img/changepass.png" class="icon-links"></img> Change Password</p>
-                          	</div>
-                          	<div class="col-sm-4">
-                          		<p id="anssheet" class="icons"><img src="img/anssheet.png" class="icon-links"></img> Answer Sheets</p> 
-                          	</div>
-                          	<div class="col-sm-4">
-                          		<p id="sessmarks" class="icons"><img src="img/anssheet.png" class="icon-links"></img> Sessionals</p>
-                          	</div>
-                          		  
-                            	      
-                          	</div>
-                          	<br><br>
-                      
-                          </div>
-                          
-                  <!-- ........................Frames............................... -->
-                          
-                          <div id="ChangePassFrame">
-                          		
-                          		<h4 style="color:white;font-weight:bold;text-align:center;font-family:Georgia;"> <img src="img/changepass.png" class="icon-links"></img>Change Password</h4><br>
-                          		<form class="form-signin" action="ChangePass.jsp" method="post">
-                          			<input type="hidden" name="userid" value=<%=enrollment %>>
-  									<div class="row">
-  											<input type="password" name="currentpass" class="form-control pass-field" placeholder="Current Password" title="Your Current Password" required autofocus>
-  					 		        </div>
-  					 		        <div class="row">
-  											<input type="password" name="newpass" class="form-control pass-field" placeholder="New Password" title="Your New Password" required autofocus>
-  					 		        </div>
-  									<div class="row">
-  									<br>
-  									<div class=row>
-  									<div class="col-sm-5"><button class="btn btn-backhome pull-right " type="button"><span class="glyphicon glyphicon-arrow-left"></button></div>
-  									<div class="col-sm-7"><button class="btn btn-next-frgt" id="submit_chpass" type="submit">Submit<span class="glyphicon glyphicon-arrow-right"></span></button></div>
-  									
-  									
-  									</div></div>
-  								</form><!-- /form -->
-                          		
-                          		
-                          
-                          </div>
-                          
-                          
-                          
-                          
-                          
-                 </div>
-           </div>
-       </div>
-       
-       <!-- .................................HOME-END........................................ -->
-       
-       <!-- .................................HISTORY-START........................................ -->
-       <div class="frames frame-2" id="frame-2">
-       		
-       		<div class="row">
-       			<div class="col-sm-6">
-       			<div class="rcd">Total Test</div>
-       			</div>
-       			<div class="col-sm-6">
-       			<div class="rcd">Attemped Test</div>
-       			</div>
-       			
-       		</div>
-       		<div class="row">
-       			<div class="col-sm-6">
-       			<div class="rcd-val" id="ttest">##</div>
-       			</div>
-       			<div class="col-sm-6">
-       			<div class="rcd-val" id="attempted">##</div>
-       			</div>
-       			
-       		</div>
-       		<br>
-       		<div class=row >
-       		<div id="table">
-       		   <table class="table table-responsive" id="frame-2-table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Semester</th>
-        <th>Subject</th>
-        <th>Questions</th>
-        <th>Correct Answers</th>
-      </tr>
-    </thead>
-    <tbody>
-    
-       <%
+			<div class="row">
+				<div class="col-sm-3 ">
+					<img id="profile-img" class="profile-img-card"
+						src="img/users/default.png" />
+					<p id="profile-name" class="profile-name-card"><%=name%></p>
+					<br>
+					<p style="font-size: 14px; font-weight: bold; text-align: center;"><%=enrollment.toUpperCase()%></p>
+					<p style="font-size: 14px; font-weight: bold; text-align: center;"><%=sem%>th
+						Sem
+					</p>
+					<p style="font-size: 14px; font-weight: bold; text-align: center;"><%=brnch%></p>
+
+				</div>
+
+				<div class="col-sm-9">
+					<!-- .................................Links....................... -->
+					<div id="records">
+						<div class="row">
+							<div class="col-sm-4">
+								<p id="changepass" class="icons">
+									<img src="img/changepass.png" class="icon-links"></img> Change
+									Password
+								</p>
+							</div>
+							<div class="col-sm-4">
+								<p id="anssheet" class="icons">
+									<img src="img/anssheet.png" class="icon-links"></img> Answer
+									Sheets
+								</p>
+							</div>
+							<div class="col-sm-4">
+								<p id="sessmarks" class="icons">
+									<img src="img/anssheet.png" class="icon-links"></img>
+									Sessionals
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<p id="midsem" class="icons">
+									<img src="img/anssheet.png" class="icon-links"></img> Midsem
+									Results
+								</p>
+							</div>
+
+						</div>
+						<br> <br>
+
+					</div>
+
+					<!-- ........................Frames............................... -->
+
+					<div id="ChangePassFrame">
+
+						<h4
+							style="color: white; font-weight: bold; text-align: center; font-family: Georgia;">
+							<img src="img/changepass.png" class="icon-links"></img>Change
+							Password
+						</h4>
+						<br>
+						<form class="form-signin" action="ChangePass.jsp" method="post">
+							<input type="hidden" name="userid" value=<%=enrollment %>>
+							<div class="row">
+								<input type="password" name="currentpass"
+									class="form-control pass-field" placeholder="Current Password"
+									title="Your Current Password" required autofocus>
+							</div>
+							<div class="row">
+								<input type="password" name="newpass"
+									class="form-control pass-field" placeholder="New Password"
+									title="Your New Password" required autofocus>
+							</div>
+							<div class="row">
+								<br>
+								<div class=row>
+									<div class="col-sm-5">
+										<button class="btn btn-backhome pull-right " type="button">
+											<span class="glyphicon glyphicon-arrow-left">
+										</button>
+									</div>
+									<div class="col-sm-7">
+										<button class="btn btn-next-frgt" id="submit_chpass"
+											type="submit">
+											Submit<span class="glyphicon glyphicon-arrow-right"></span>
+										</button>
+									</div>
+
+
+								</div>
+							</div>
+						</form>
+						<!-- /form -->
+
+
+
+					</div>
+
+					<!-- ......................Midsem Select Semester......................... -->
+
+					<div id="MidsemFrame">
+
+						<h4
+							style="color: white; font-weight: bold; text-align: center; font-family: Georgia;">
+							MidSem Results</h4>
+						<br>
+						<form class="form-signin" action="Services/midsem.jsp" method="post">
+
+							<div class="row">
+								<div class="form-group"><center>
+									<label for="semesterMidtest">Semester:</label> <select
+										class=".selectpicker" id="semesterMidtest" name="semesterMidtest" required>
+										<option value="I">I</option>
+										<option value="II">II</option>
+										<option value="III">III</option>
+										<option value="IV">IV</option>
+										<option value="V">V</option>
+										<option value="VI">VI</option>
+										<option value="VII">VII</option>
+										<option value="VIII">VIII</option>
+
+									</select>
+									</center>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group"><center>
+									<label for="midtest">MidSem:</label> 
+									<select
+										class=".selectpicker" id="midtest" name="mid_test" required>
+										<option value="I">I</option>
+										<option value="II">II</option>
+									</select>
+								</center>
+								</div>
+							</div>
+							<div class="row">
+								<br>
+								<div class=row>
+									<div class="col-sm-5">
+										<button class="btn btn-backhome pull-right " type="button">
+											<span class="glyphicon glyphicon-arrow-left">
+										</button>
+									</div>
+									<div class="col-sm-7">
+										<button class="btn btn-next-frgt" id="submit_chpass"
+											type="submit">
+											Submit<span class="glyphicon glyphicon-arrow-right"></span>
+										</button>
+									</div>
+
+
+								</div>
+							</div>
+						</form>
+						<!-- /form -->
+
+
+
+					</div>
+
+					<!-- ...................................................................... -->
+				</div>
+			</div>
+		</div>
+
+		<!-- .................................HOME-END........................................ -->
+
+		<!-- .................................HISTORY-START........................................ -->
+		<div class="frames frame-2" id="frame-2">
+
+
+
+			<br>
+			<div class=row>
+				<div id="table" class="table-responsive">
+					<table class="table " id="frame-2-table">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Semester</th>
+								<th>Subject</th>
+								<th>Questions</th>
+								<th>Correct Answers</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<%
        st2=connection.createStatement();
        String rcd_query="Select * from test_records where enrollment=\""+enrollment+"\" order by date desc";
        rs2=st2.executeQuery(rcd_query);
@@ -401,16 +504,17 @@ function load_data(subval){
     	   int total_qu=rs2.getInt("total_qu");
     	   int correct_ans=rs2.getInt("correct_ans");
     	   %>
-    	    
-    	   <tr class="active" style="text-align:center;font-family:georgia;font-weight:bold;">
-        	 <td class="field-1"><%=date %></td>
-       		 <td class="field-2"><%=semester %></td>
-       		 <td class="field-3"><%=subject%></td>
-      		 <td class="field-4" style="color:red"><%=total_qu%></td>
-      		 <td class="field-5" style="color:green"><%=correct_ans%></td>
-           </tr>
-    	   
-    	   <% 
+
+							<tr class="active"
+								style="text-align: center; font-family: georgia; font-weight: bold;">
+								<td class="field-1"><%=date %></td>
+								<td class="field-2"><%=semester %></td>
+								<td class="field-3"><%=subject%></td>
+								<td class="field-4" style="color: red"><%=total_qu%></td>
+								<td class="field-5" style="color: green"><%=correct_ans%></td>
+							</tr>
+
+							<% 
     	   
     	   
        }
@@ -421,28 +525,28 @@ function load_data(subval){
     	st2.close();
     	rs2.close();
   
-    	Connection con2=DriverManager.getConnection(url_db2,id_db,pass_db);
+    	
     	Statement st_Sess=con2.createStatement();
     	ResultSet rs_Sess=st_Sess.executeQuery("SELECT `table-name`,`subject`,`faculty` FROM `table-details` WHERE branch=\""+brnch+"\" and semester=\""+sem+"\"");
     	%>
-    	<script>
+							<script>
     		var sub=[];
     		var fac=[];
     		var tableName=[];
     		
     	</script>
-    	<% 
+							<% 
     	int count2=0;
     	while(rs_Sess.next()){
     		%>
-    		<script> 
+							<script> 
     			sub[<%=count2%>] = "<%=rs_Sess.getString("subject")%>";
     			fac[<%=count2%>] = "<%=rs_Sess.getString("faculty")%>";
     			tableName[<%=count2%>] = "<%=rs_Sess.getString("table-name")%>";
 
     		</script>
-    
-    		<%
+
+							<%
     		sql4="select * from `"+rs_Sess.getString("table-name")+"` where ClassRoll='0'";
     		sql3="select * from `"+rs_Sess.getString("table-name")+"` where Enroll=\""+enrollment+"\"";
     		st4=con2.createStatement();
@@ -453,182 +557,188 @@ function load_data(subval){
     			int k=0;
     			for(int j=1;j<=20;j++){
     			%>
-    			<script>
+							<script>
     				temp1.push("<%=rs4.getString(3+j)%>");
     				
-    				if(temp1[<%=k%>]==""){
-    				sumO=sumO+0;
+    				if(Number(temp1[<%=k%>])){
+    					sumO+=Number(temp1[<%=k%>]);
     				}
-    				else
-    					sumO=sumO+parseInt(temp1[<%=k%>]);
+    				
     			</script>
-    			<%	
+							<%	
     			k++;
     		}
     			%>
-        		<script>
+							<script>
         		sumOfOutof.push(sumO);
         		sumO=0;
         			outof.push(temp1);
         			temp1=[];
         		</script>
-        		
-        		<%
+
+							<%
 			}
     		while(rs3.next()){
     			int p=0;
     			for(int j=1;j<=20;j++){
     			%>
-    			<script>
+							<script>
     				temp.push("<%=rs3.getString(3+j)%>");
-    				
-    				if(temp[<%=p%>]==""){
-        				sumD=sumD+0;
-        				}
-        				else
-        					sumD=sumD+parseInt(temp[<%=p%>]);
+    				if(Number(temp[<%=p%>])){
+    					sumD+=Number(temp[<%=p%>]);
+    				}
     			</script>
-    			<%	
+							<%	
     			p++;
     		}
     		%>
-    		<script>
+							<script>
     			sumOfObtained.push(sumD);
     			sumD=0;
     			data.push(temp);
     			temp=[];
     		</script>
-    		
-    		<%
+
+							<%
     		
     		
     		}
     		
     		count2++;
     	}
-    	con2.close();
+    	
        %>
-      
-    </tbody>
-  </table>
-  
- 
-  </div>
-       		</div>
-       		 
-       </div>  
-	<!-- .................................HISTORY-END........................................ -->
-  
-  <!-- .................................Sessionals Frame........................................ -->
-    <div class="frames frame-sess" id="sess-frame">
+
+						</tbody>
+					</table>
 
 
-
-            <div  class="frames frame-sub" id="sub-frame">
-            <div class="panel panel-info">
-            <div class="panel-heading">Select Subject for Detailed View.</div>
-  				<table class="table">
-  					<thead>
-  					<th>Subject</th>
-  					<th>Out of</th>
-  					<th>Obtained</th>
-  					</thead>
-  					<tbody id="sub-frame-tbody">
-  					</tbody>
-  				</table>
+				</div>
 			</div>
-			 <p><center><button id="Submit" onclick="finalComment()">Submit</button></center></p>
-			 
-			    <script>
-              function finalComment(){
 
-            		if (confirm(problem) == true) {
-            		    window.alert("Gone to database");
-            		} else {
-            		    window.alert("You pressed cancel!");
-            		}
-            		
-            	}
+		</div>
+		<!-- .................................HISTORY-END........................................ -->
+		<%
+  	PreparedStatement ps3=con2.prepareStatement("select * from `com` where Enroll=? ");
+  ps3.setString(1,enrollment);
+  ResultSet rs5=ps3.executeQuery();
+  while(rs5.next()){
+	  %>
+		<script>
+	  	var newobj={sub:"<%=rs5.getString("Subject")%>",status:"<%=rs5.getString("status")%>"};
+	  	statusdata.push(newobj);	  
+	  </script>
+
+		<%
+	  
+  }
+  %>
+
+		<% 
   
- 
-               </script>
-			 
-            </div>
+  
+  
+  
+  
+  %>
+		<!-- .................................Sessionals Frame........................................ -->
+		<div class="frames frame-sess" id="sess-frame">
 
-            <div  class="frame-marks" id="marks-frame">
-               
-               <p><center><button id="Review" onclick="promptWindow()">Review</button></center></p>        
-               
-           
-                                  
-      <div  id="sess-table">  
-      <table class="table" >
- 			    <thead>
- 			    
- 				<th><button class="btn btn-loginback pull-left" id="back"><span class="glyphicon glyphicon-arrow-left"></span></button>
- 				CRITERIA
- 				</th>
- 				<th>OUT OF</th>
- 				<th>OBTAINED MARKS</th>
- 				</thead>
-			<tbody id="table-body">
-			</tbody>
-		
-      </table>
-      <script>
-     
-      </script>
-      
-      </div>
-       </div>
-    </div>
- 
-    
 
-    
 
- <!-- .................................END Sessionals Frame........................................ -->
-   
+			<div class="frames frame-sub" id="sub-frame">
+				<div class="panel panel-info">
+					<div class="panel-heading">Select Subject for Detailed View.</div>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<th>Subject</th>
+								<th>Out of</th>
+								<th>Obtained</th>
+								<th>Status</th>
+							</thead>
+							<tbody id="sub-frame-tbody">
+							</tbody>
+						</table>
+					</div>
+				</div>
 
-    </div>
+
+
+			</div>
+
+			<div class="frame-marks" id="marks-frame">
 
 
 
 
-     <!-- ......................end body........................ -->
-     <%
+				<div class="row">
+					<div id="sess-table" class="table-responsive col-sm-9">
+						<table class="table ">
+							<thead>
+
+								<th><button class="btn btn-loginback pull-left" id="back">
+										<span class="glyphicon glyphicon-arrow-left"></span>
+									</button> CRITERIA</th>
+								<th>OUT OF</th>
+								<th>OBTAINED MARKS</th>
+							</thead>
+							<tbody id="table-body">
+							</tbody>
+
+						</table>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+
+
+		<!-- .................................END Sessionals Frame........................................ -->
+
+
+	</div>
+
+	<!-- ......................end body........................ -->
+	<%
    }}
    else{
 
    %>
-   <script type="text/javascript">
+	<script type="text/javascript">
     swal("Wrong Credentials!!", "You're being directed to login page..", "error");
     setTimeout(function(){ window.location="index.html"; }, 2000);
   </script>
-  <%
+	<%
 
 }
 
 connection.close();
+con2.close();
 
 }catch(Exception e)
 {System.out.println(e);%><script type="text/javascript">
 swal("Connection Error!!", "You're being directed to login page..", "error");
 setTimeout(function(){ window.location="index.html"; }, 2000);
-</script><%
+</script>
+	<%
 }
-%>    
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/portjs.js"></script>
-<%}catch(Exception fec){
+%>
+	
+	<%}catch(Exception fec){
 	//System.out.println(fec);
 	%>
 	<script type="text/javascript">
-	swal("403 Forbidden!!", "You're being directed to login page..", "error");
+	swal("Access Denied!!", "You're being directed to login page..", "error");
 	setTimeout(function(){ window.location="index.html"; }, 1000);
 	//window.location="index.html";
-	</script><%
+	</script>
+	<%
 }
 
 

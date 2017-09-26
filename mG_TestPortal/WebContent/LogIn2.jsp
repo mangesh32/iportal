@@ -20,9 +20,17 @@
 <body>
 <%
 try{
-	 String enrollment=request.getParameter("userid").toLowerCase();
-     String pass=request.getParameter("key");
+	 String userid=request.getParameter("userid2");
+     String pass=request.getParameter("pass");
      
+     if(userid.equals("AdminMG") && pass.equals("cold_2000"))
+     {
+    	 session=request.getSession(true);
+  	   session.setAttribute("loginuser","Administrator");
+  	   System.out.println(".............................");
+  	   System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
+  	   response.sendRedirect("admin.jsp");  
+     }else{
      ServletContext context = pageContext.getServletContext();
 		String url_db = context.getInitParameter("address");
 		String id_db = context.getInitParameter("id");
@@ -30,16 +38,17 @@ try{
 	 Class.forName("com.mysql.jdbc.Driver"); 
    Connection connection = DriverManager.getConnection(url_db,id_db,pass_db);
    Statement st=connection.createStatement();
-   ResultSet rs=st.executeQuery("select name from auth_table where enrollment=\""+enrollment+"\" and password=\""+pass+"\"");
+   ResultSet rs=st.executeQuery("select name from auth_table_fac where userid=\""+userid+"\" and password=\""+pass+"\"");
    if(rs.next())
    {
 	   session=request.getSession(true);
 	   session.setAttribute("loginuser", rs.getString("name"));
-	   session.setAttribute("enroll", enrollment);
+	   session.setAttribute("enroll", userid);
 	   session.setAttribute("pwd", pass);
+	   session.setAttribute("post", "faculty");
 	   System.out.println(".............................");
 	   System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
-	   response.sendRedirect("Portal.jsp");  
+	   response.sendRedirect("FacultyPortal.jsp");  
    }
    else{
 	 //response.sendError(403, "Wrong Credentials");
@@ -49,13 +58,13 @@ try{
 		</script>
 	   <%
    }
-	
+  }
 }
 catch(Exception e){
 	System.out.println("Database Connectivity Error!!");
  %><script>
 	   swal("Sorry...", "Connectivity Error..", "error");
-		setTimeout(function(){ window.location="index.html"; }, 2000);
+		setTimeout(function(){ window.location="index.html"; }, 1000);
 		</script>
 	   <%
 

@@ -35,9 +35,23 @@
 <body>
 	<% 
 	 try{
-	String pass ="no-password";pass=request.getParameter("pass");
-		
-		if(!pass.equals("cold_2000"))throw new Exception("Invaid User login --->>Admin Page :: Pass - "+pass);
+		 if(session!=null){
+   		  if(session.getAttribute("loginuser")!=null){
+   			  //String loginuser=session.getAttribute("loginuser").toString();
+   			  //System.out.println(".............................");
+   			  //System.out.println(session.getAttribute("loginuser")+" : Logged IN.");
+   			  response.setHeader("Cache-Control","no-cache");
+   			  response.setHeader("Cache-Control","no-store");
+   			  response.setHeader("Pragma","no-cache");
+   			  response.setDateHeader ("Expires", 0);
+   			  
+   		  }else{
+   			  throw new Exception("Invalid User Login");
+   		  }
+   		 
+   	  }else{
+   		  throw new Exception("Invalid User Login");
+   	  }
 	  ServletContext context = pageContext.getServletContext();
   		String url_db = context.getInitParameter("address");
   		String id_db = context.getInitParameter("id");
