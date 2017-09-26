@@ -337,6 +337,8 @@ th,td,tr{text-align:center;}
 	text-align:center;}
 #anssheet{cursor:not-allowed;}
 #ChangePassFrame{display:none;}
+#MidsemFrame{display:none;}
+#MidsemFrame label{color:white;}
 .recent_test{
 	margin-top:100px;
 	

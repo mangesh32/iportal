@@ -15,10 +15,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/portjs.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-select.css" rel="stylesheet">
+<script src="js/bootstrap-select.js"></script>	
 <link rel="stylesheet" type="text/css" href="css/portalstyle.css">
 <script src="sweetalert-master/dist/sweetalert.min.js"></script>
-<script src="js/jquery.min.js"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="sweetalert-master/dist/sweetalert.css">
 
@@ -334,11 +340,17 @@ function load_data(subval){
 									Sessionals
 								</p>
 							</div>
-
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<p id="midsem" class="icons">
+									<img src="img/anssheet.png" class="icon-links"></img> Midsem
+									Results
+								</p>
+							</div>
 
 						</div>
-						<br>
-						<br>
+						<br> <br>
 
 					</div>
 
@@ -389,10 +401,70 @@ function load_data(subval){
 
 					</div>
 
+					<!-- ......................Midsem Select Semester......................... -->
+
+					<div id="MidsemFrame">
+
+						<h4
+							style="color: white; font-weight: bold; text-align: center; font-family: Georgia;">
+							MidSem Results</h4>
+						<br>
+						<form class="form-signin" action="Services/midsem.jsp" method="post">
+
+							<div class="row">
+								<div class="form-group"><center>
+									<label for="semesterMidtest">Semester:</label> <select
+										class=".selectpicker" id="semesterMidtest" name="semesterMidtest" required>
+										<option value="I">I</option>
+										<option value="II">II</option>
+										<option value="III">III</option>
+										<option value="IV">IV</option>
+										<option value="V">V</option>
+										<option value="VI">VI</option>
+										<option value="VII">VII</option>
+										<option value="VIII">VIII</option>
+
+									</select>
+									</center>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group"><center>
+									<label for="midtest">MidSem:</label> 
+									<select
+										class=".selectpicker" id="midtest" name="mid_test" required>
+										<option value="I">I</option>
+										<option value="II">II</option>
+									</select>
+								</center>
+								</div>
+							</div>
+							<div class="row">
+								<br>
+								<div class=row>
+									<div class="col-sm-5">
+										<button class="btn btn-backhome pull-right " type="button">
+											<span class="glyphicon glyphicon-arrow-left">
+										</button>
+									</div>
+									<div class="col-sm-7">
+										<button class="btn btn-next-frgt" id="submit_chpass"
+											type="submit">
+											Submit<span class="glyphicon glyphicon-arrow-right"></span>
+										</button>
+									</div>
+
+
+								</div>
+							</div>
+						</form>
+						<!-- /form -->
 
 
 
+					</div>
 
+					<!-- ...................................................................... -->
 				</div>
 			</div>
 		</div>
@@ -561,7 +633,7 @@ function load_data(subval){
 	  
   }
   %>
-	
+
 		<% 
   
   
@@ -616,7 +688,7 @@ function load_data(subval){
 
 						</table>
 					</div>
-					
+
 				</div>
 
 
@@ -657,9 +729,7 @@ setTimeout(function(){ window.location="index.html"; }, 2000);
 	<%
 }
 %>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/portjs.js"></script>
+	
 	<%}catch(Exception fec){
 	//System.out.println(fec);
 	%>

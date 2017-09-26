@@ -3,7 +3,7 @@ var ssub="",sfaculty="",smsg="";
 
 
 $(document).ready(function(){
-	
+	$('select').selectpicker();	
 	for (var i =0 ; i<sub.length; i++) {
 		$("#sub-frame-tbody").append("<tr><td><button class=\"btn sel-sub\" val=\""+i+"\">"+sub[i]+"</button></td><td>"+sumOfOutof[i]+"</td><td>"+sumOfObtained[i]+"</td><td><button class=\"btn btn-success Review\" val=\""+i+"\">Ask For Review</button></td></tr>");
 	}
@@ -42,6 +42,11 @@ $("#changepass").click(function(){
 	$("#ChangePassFrame").fadeIn();
 	
 });
+$("#midsem").click(function(){
+	$("#records").hide();
+	$("#MidsemFrame").fadeIn();
+	
+});
 $("#sessmarks").click(function(){
 	$("#frame-1").hide();
 	$("#frame-2").hide();
@@ -49,6 +54,7 @@ $("#sessmarks").click(function(){
 });
 $(".btn-backhome").click(function(){
 	$("#ChangePassFrame").hide();
+	$("#MidsemFrame").hide();
 	$("#records").fadeIn();
 });
 
